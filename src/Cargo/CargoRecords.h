@@ -24,6 +24,10 @@ public:
 	void deleteCargo(int index);
 	bool removeCargo(int index, int quantity);
 	void editCargo(int index, Cargo c);
+	void editCargoRecord(int index, Cargo c);
+	void deleteCargoRecord(int index);
+	std::vector<Cargo> getAllRecords() const override;
+
 };
 
 #endif

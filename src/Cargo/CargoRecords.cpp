@@ -61,3 +61,25 @@ void CargoRecords::editCargo(int index, Cargo c) {
 	records.erase(records.begin() + index);
 	records.insert(records.begin() + index, c);
 }
+
+// Edit existing cargo record at the given index
+void CargoRecords::editCargoRecord(int index, Cargo c) {
+    if (index >= 0 && index < records.size()) {
+        records[index] = c;
+    } else {
+        std::cerr << "Invalid index." << std::endl;
+    }
+}
+
+// Delete cargo record at the given index
+void CargoRecords::deleteCargoRecord(int index) {
+    if (index >= 0 && index < records.size()) {
+        records.erase(records.begin() + index);
+    } else {
+        std::cerr << "Invalid index." << std::endl;
+    }
+}
+
+std::vector<Cargo> CargoRecords::getAllRecords() const {
+    return records;
+}
