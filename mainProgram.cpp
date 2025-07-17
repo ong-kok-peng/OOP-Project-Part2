@@ -8,10 +8,11 @@ using namespace std;
 
 #include "src/Builders/FreightAddRecords.h"
 #include "src/Builders/FreightModifyRecords.h"
-#include "src/Displayers/FreightDisplayRecords.h"
+#include "src/Displayers/FreightDisplayData.h"
 
-
-//#include "src/Builders/CargoAddRecords.h"
+#include "src/Builders/CargoAddRecords.h"
+#include "src/Builders/CargoModifyRecords.h"
+#include "src/Displayers/CargoDisplayData.h"
 
 //local function prototype
 void showDataMenu(int mainMenuSelection);
@@ -37,7 +38,8 @@ void showDataMenu(int mainMenuSelection) {
 
     //initialize objects
     FreightRecords fr; CargoRecords cr;
-    FreightAddRecords addFR(fr); FreightModifyRecords modifyFR(fr); FreightDisplayRecords displayFR(fr);
+    FreightAddRecords addFR(fr); FreightModifyRecords modifyFR(fr); FreightDisplayData displayFR(fr);
+    CargoAddRecords addCR(cr); CargoModifyRecords modifyCR(cr); CargoDisplayData displayCR(cr);
 
     if (mainMenuSelection == 1) { mode = "Freight"; }
     else if (mainMenuSelection == 2) { mode = "Cargo"; }
@@ -74,7 +76,7 @@ void showDataMenu(int mainMenuSelection) {
             //load freighter/cargoItem data from text file
             clearScreen();
             if (mainMenuSelection == 1) { addFR.addRecordsFromFile(); }
-            else if (mainMenuSelection == 2) { } //loadCargoRecordFile();
+            else if (mainMenuSelection == 2) { addCR.addRecordsFromFile(); } 
             waitForKey();
             break;
         }
@@ -82,28 +84,28 @@ void showDataMenu(int mainMenuSelection) {
             //display freighter/cargoItem data 
             clearScreen();
             if (mainMenuSelection == 1) { displayFR.displayRecords(); }
-            else if (mainMenuSelection == 2) { } //dispCargoRecords();
+            else if (mainMenuSelection == 2) { displayCR.displayRecords(); } 
             waitForKey();
             break;
         case 3:
             //add freighter/cargoItem data 
             clearScreen();
             if (mainMenuSelection == 1) { addFR.addRecord(); }
-            else if (mainMenuSelection == 2) { } //dispCargoRecords(); 
+            else if (mainMenuSelection == 2) { addCR.addRecord(); } 
             waitForKey();
             break;
         case 4:
             //delete freighter/cargoItem data 
             clearScreen();
             if (mainMenuSelection == 1) { modifyFR.deleteRecord(); }
-            else if (mainMenuSelection == 2) { } // delCargoRecord();
+            else if (mainMenuSelection == 2) { modifyCR.deleteRecord(); } 
             waitForKey();
             break;
         case 5:
             //edit freighter/cargoItem data 
             clearScreen();
             if (mainMenuSelection == 1) { modifyFR.editRecord(); }
-            else if (mainMenuSelection == 2) { } //editCargoRecord();
+            else if (mainMenuSelection == 2) { modifyCR.editRecord(); }
             waitForKey();
             break;
         case 6:
