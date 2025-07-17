@@ -46,6 +46,16 @@ int Cargo::getQuantity() const {
     return quantity;
 }
 
+bool Cargo::setDestination(std::string destination) {
+	this->destination = destination;
+	return true;
+}
+
+bool Cargo::setTime(std::string time) {
+	this->time = time;
+	return true;
+}
+
 
 /* test main code
 int main() {
