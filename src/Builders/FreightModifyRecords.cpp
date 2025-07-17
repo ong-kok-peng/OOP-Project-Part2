@@ -107,11 +107,11 @@ void FreightModifyRecords::deleteRecord() {
 
 		if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 		
-		if (deleteYesNo == 'N' || deleteYesNo == 'n') { 
-			fr.deleteFreight(recordIndex); 
+		if (deleteYesNo == 'N' || deleteYesNo == 'n') {
 			cout << "\nRecord is not deleted. Press enter to go back.\n";
 		}
 		else if (deleteYesNo == 'Y' || deleteYesNo == 'y') {
+			fr.deleteFreight(recordIndex);
 			cout << "\nSuccess: record is deleted! Press enter to go back.\n";
 		}
 		else {

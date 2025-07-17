@@ -15,18 +15,13 @@ private:
 
 public:
     Cargo();  // Default constructor
-    Cargo(std::string id, std::string dest, std::string time, int quantity);  // Custom constructor
 
     // Setters
     bool setId(std::string id);
     bool setQuantity(int quantity);
-    bool setDestination(std::string dest);
-    bool setTime(std::string time);
 
     // Getters
     std::string getId() const;
-    std::string getDestination() const;
-    std::string getTime() const;
     int getQuantity() const;
 };
 

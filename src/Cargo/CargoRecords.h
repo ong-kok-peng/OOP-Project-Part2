@@ -6,12 +6,11 @@
 #include <vector>
 #include "IReadCargoRecords.h"
 #include "Cargo.h"
-#include <string>
 
 
 class CargoRecords : public IReadCargoRecords {
 private:
-	std::vector<Cargo> records;
+	vector<Cargo> records;
 
 public:
 	CargoRecords();
@@ -20,17 +19,12 @@ public:
 	void sortCargoByTime() override;
 	void sortCargoByQuantity() override;
 
-	int getRecordIndex(std::string id);
+	int getRecordIndex(string id);
 	void addCargo(Cargo c);
-	bool appendCargo(int index, int quantity);
+	//bool appendCargo(int index, int quantity);
 	void deleteCargo(int index);
-	bool removeCargo(int index, int quantity);
+	//bool removeCargo(int index, int quantity);
 	void editCargo(int index, Cargo c);
-	void editCargoRecord(int index, Cargo c);
-	void deleteCargoRecord(int index);
-	std::vector<Cargo> getAllRecords() const override;
-	Cargo getRecord(int index) const;
-	int findRecordById(const std::string& id) const;
 
 };
 

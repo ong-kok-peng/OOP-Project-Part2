@@ -5,6 +5,11 @@ using namespace std;
 
 #include "CargoAddRecords.h"
 
+/*
+Created by: Yeo Zi Xuan Augustine (2403343)
+Date: 17/7/2025
+*/
+
 CargoAddRecords::CargoAddRecords(CargoRecords& cr) : cr{ cr } {}
 
 void CargoAddRecords::addRecord() {
@@ -30,11 +35,31 @@ void CargoAddRecords::addRecord() {
 	}
 	else {
 		//check if ID exists
-		if (cr.getRecordIndex(id) != -1) {
-			cout << "Error: ID \"" << id << "\" already exists. Press enter to go back.\n"; return;
+
+		int recordIndex = cr.getRecordIndex(id);
+		if (recordIndex != -1) {
+			//Existing cargo ID exists. Add quantity instead.
+
+			int additionalQuantity;
+			Cargo currentRecord = cr.getCargo(recordIndex);
+			cout << "\nThe ID already has original record:\n";
+			cout << "Destination: " << currentRecord.getDestination() << "; Time: " << currentRecord.getTime() << "; Quantity: " << currentRecord.getQuantity() << ".\n\n";
+
+			//prompt user whether to key in new quantity or  type 0 to cancel
+			cout << "Would you like to add more quantity? Enter additional quantity or 0 to cancel: \n";
+			cin >> additionalQuantity;
+
+			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
+			
+			if (additionalQuantity == 0) { cout << "\nAdd cargo is cancelled. Press enter to go back.\n"; }
+			if (currentRecord.setQuantity(currentRecord.getQuantity() + additionalQuantity)) { 
+				cr.editCargo(recordIndex, currentRecord);
+				cout << "\nSuccess: record quantity is appended! Press enter to go back\n"; 
+			}
+			else { cout << "\nError: additional quantity exceeded max total quantity of 10.\n"; }
 		}
 		else {
-			//validate all values and add cargo object to records collection
+			//Exisitng cargo doesn't exist, make a new record. validate all values and add cargo object to records collection
 
 			bool validationError = false; string errorMsg = "Error: There is/are validation error(s):";
 
@@ -44,7 +69,7 @@ void CargoAddRecords::addRecord() {
 			if (!newRecord.setDestination(destination)) { validationError = true; errorMsg += "\nDestination is empty/invalid format."; }
 			if (!newRecord.setTime(time)) { validationError = true; errorMsg += "\nTime is empty/invalid format."; }
 			if (!newRecord.setId(id)) { validationError = true; errorMsg += "\nID is empty/invalid format."; }
-			if (!newRecord.setQuantity(stoi(quantityStr))) { validationError = true; errorMsg += "\nQuantity is empty/invalid quantity."; }
+			if (!newRecord.setQuantity(stoi(quantityStr))) { validationError = true; errorMsg += "\nInvalid quantity."; }
 
 			if (validationError) { cout << errorMsg << "\n\nPress enter to go back\n"; }
 			else { cr.addCargo(newRecord); cout << "Success: record is added! Press enter to go back\n"; }

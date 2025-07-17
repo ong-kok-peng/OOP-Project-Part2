@@ -5,14 +5,16 @@ using namespace std;
 
 #include "CargoModifyRecords.h"
 
+/*
+Created by: Yeo Zi Xuan Augustine (2403343)
+Date: 17/7/2025
+*/
+
 CargoModifyRecords::CargoModifyRecords(CargoRecords& cr) : cr{ cr } {}
 
 void CargoModifyRecords::editRecord() {
-	string textinput, id, oldDestination, oldTime;
-	string newDestination, newTime;
-	string oldQuantityStr, newQuantityStr;
-	int oldQuantity = stoi(oldQuantityStr);
-	int newQuantity = stoi(newQuantityStr);
+	string textinput, id, oldDestination, oldTime; int oldQuantity;
+	string newDestination, newTime, newQuantityStr;
 
 	cout << "------ Edit Existing Cargo Record ------\n\n";
 	cout << "Enter the ID you wish to edit.\n";
@@ -20,7 +22,7 @@ void CargoModifyRecords::editRecord() {
 	cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush any leftover newline before the user input
 	getline(cin, textinput);
 
-	if (textinput.compare("CANCEL") == 0) { cout << "\nEdit freight is cancelled. Press enter to go back.\n"; return; }
+	if (textinput.compare("CANCEL") == 0) { cout << "\nEdit cargo is cancelled. Press enter to go back.\n"; return; }
 
 	id = textinput;
 
@@ -35,12 +37,12 @@ void CargoModifyRecords::editRecord() {
 		cout << "\nThe original record is:\n";
 		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Quantity: " << oldQuantity << ".\n\n";
 
-		//prompt user to type new values for the freight record. if any attribute is unchanged, put a blank
+		//prompt user to type new values for the cargo record. if any attribute is unchanged, put a blank
 		cout << "Enter the new destination, time and quantity, separated with a comma in between.\n";
 		cout << "Leave the value blank if there are no changes. To go back, type \"CANCEL\".\n\n-> ";
 		getline(cin, textinput);
 
-		if (textinput.compare("CANCEL") == 0) { cout << "\nEdit freight is cancelled. Press enter to go back.\n"; return; }
+		if (textinput.compare("CANCEL") == 0) { cout << "\nEdit cargo is cancelled. Press enter to go back.\n"; return; }
 
 		stringstream ss(textinput);
 		if (!(getline(ss, newDestination, ',') && getline(ss, newTime, ',') && getline(ss, newQuantityStr))) {
@@ -67,7 +69,7 @@ void CargoModifyRecords::editRecord() {
 			}
 			if (!newQuantityStr.empty()) {
 				recordEdited = true;
-				if (!currentRecord.setQuantity(newQuantity)) { validationError = true; errorMsg += "\nQuantity is empty/invalid quantity."; }
+				if (!currentRecord.setQuantity( stoi(newQuantityStr) )) { validationError = true; errorMsg += "\nInvalid quantity."; }
 			}
 
 			if (recordEdited) {
@@ -80,7 +82,7 @@ void CargoModifyRecords::editRecord() {
 }
 
 void CargoModifyRecords::deleteRecord() {
-	string textinput, id, oldDestination, oldTime, oldQuantity;
+	string textinput, id, oldDestination, oldTime; int oldQuantity;
 	char deleteYesNo;
 
 	cout << "------ Delete Existing Cargo Record ------\n\n";
@@ -96,38 +98,63 @@ void CargoModifyRecords::deleteRecord() {
 	//check if ID exists
 	int recordIndex = cr.getRecordIndex(id);
 	if (recordIndex == -1) {
+		//ID doesn't exist in records, unable to delete
 		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
 	}
 	else {
+		//ID exisits in records, check if the quantity is more than 1
+
 		Cargo currentRecord = cr.getCargo(recordIndex);
 		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldQuantity = currentRecord.getQuantity();
 		cout << "\nThe original record is:\n";
 		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Quantity: " << oldQuantity << ".\n\n";
 
-		//prompt user to confirm the delete
-		cout << "Are you sure you want to delete this record? (Y/N): ";
-		cin >> deleteYesNo;
+		if (oldQuantity > 1) {
+			//old quantity is > 1, prompt user whether to remove some quantity or remove the whole record
 
-		if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
+			int removeQuantity;
+			cout << "Would you like to add more quantity? Enter quantity to remove." << 
+				"\nOr enter exact original quantity to delete whole record, or enter 0 to cancel: \n";
+			cin >> removeQuantity;
 
-		if (deleteYesNo == 'N' || deleteYesNo == 'n') {
-			cr.deleteCargo(recordIndex);
-			cout << "\nRecord is not deleted. Press enter to go back.\n";
-		}
-		else if (deleteYesNo == 'Y' || deleteYesNo == 'y') {
-			cout << "\nSuccess: record is deleted! Press enter to go back.\n";
+			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
+
+			if (removeQuantity == 0) { cout << "\nAdd cargo is cancelled. Press enter to go back.\n"; }
+			if (removeQuantity == oldQuantity) { cr.deleteCargo(recordIndex); cout << "\nSuccess: record is deleted! Press enter to go back.\n"; }
+			
+			if (currentRecord.setQuantity(oldQuantity - removeQuantity)) { 
+				cr.editCargo(recordIndex, currentRecord);
+				cout << "\nSuccess: record quantity is reduced! Press enter to go back\n"; 
+			}
+			else { cout << "\nError: reduced quantity is less than 0.\n"; }
 		}
 		else {
-			cout << "\nError: invalid option. Press enter to go back.\n";
+			//old quantity is onlly 1, prompt user to confirm delete
+			cout << "Are you sure you want to delete this record? (Y/N): ";
+			cin >> deleteYesNo;
+
+			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
+
+			if (deleteYesNo == 'N' || deleteYesNo == 'n') {
+				cout << "\nRecord is not deleted. Press enter to go back.\n";
+			}
+			else if (deleteYesNo == 'Y' || deleteYesNo == 'y') {
+				cr.deleteCargo(recordIndex);
+				cout << "\nSuccess: record is deleted! Press enter to go back.\n";
+			}
+			else {
+				cout << "\nError: invalid option. Press enter to go back.\n";
+			}
 		}
+		
 	}
 }
 
 
 /* test main code
 int main() {
-	FreightRecords fr;
-	FreightModifyRecords modifyFR(fr);
+	cargoRecords fr;
+	cargoModifyRecords modifyFR(fr);
 
 	modifyFR.editRecord();
 	modifyFR.deleteRecord();

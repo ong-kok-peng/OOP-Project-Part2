@@ -28,34 +28,13 @@ bool Cargo::setQuantity(int quantity) {
 	else { return false; } // value when validation fails
 }
 
-#include "Cargo.h"
-
 std::string Cargo::getId() const {
     return id;
-}
-
-std::string Cargo::getDestination() const {
-    return destination;
-}
-
-std::string Cargo::getTime() const {
-    return time;
 }
 
 int Cargo::getQuantity() const {
     return quantity;
 }
-
-bool Cargo::setDestination(std::string destination) {
-	this->destination = destination;
-	return true;
-}
-
-bool Cargo::setTime(std::string time) {
-	this->time = time;
-	return true;
-}
-
 
 /* test main code
 int main() {
