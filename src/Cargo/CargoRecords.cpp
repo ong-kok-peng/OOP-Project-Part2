@@ -1,3 +1,9 @@
+/*
+Created by: Ong Kok Peng (2403435)
+Date: 13/7/2025
+*/
+
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -49,3 +55,5 @@ void CargoRecords::editCargo(int index, Cargo c) {
 	records.erase(records.begin() + index);
 	records.insert(records.begin() + index, c);
 }
+
+void CargoRecords::clearRecords() { records.clear(); }

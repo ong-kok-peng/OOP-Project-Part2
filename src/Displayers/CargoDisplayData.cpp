@@ -1,13 +1,13 @@
+/*
+Created by: Yeo Zi Xuan Augustine (2403343)
+Date: 17/7/2025
+*/
+
 #include <iostream>
 #include <string>
 using namespace std;
 
 #include "CargoDisplayData.h"
-
-/*
-Created by: Yeo Zi Xuan Augustine (2403343)
-Date: 17/7/2025
-*/
 
 CargoDisplayData::CargoDisplayData(IReadCargoRecords& readCR) : readCR{ readCR } {}
 

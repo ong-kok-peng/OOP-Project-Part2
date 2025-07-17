@@ -35,7 +35,7 @@ bool Freight::setName(string name) {
 
 	if (name.compare("minimover") == 0) { capacity = 2; this->name = name; return true; }
 	else if (name.compare("cargocruiser") == 0) { capacity = 6; this->name = name; return true; }
-	else if (name.compare("megacruiser") == 0) { capacity = 12; this->name = name; return true; }
+	else if (name.compare("megacarrier") == 0) { capacity = 12; this->name = name; return true; }
 	else { return false; } // value when validation fails
 }
 

@@ -21,11 +21,9 @@ public:
 
 	int getRecordIndex(string id);
 	void addCargo(Cargo c);
-	//bool appendCargo(int index, int quantity);
 	void deleteCargo(int index);
-	//bool removeCargo(int index, int quantity);
 	void editCargo(int index, Cargo c);
-
+	void clearRecords();
 };
 
 #endif

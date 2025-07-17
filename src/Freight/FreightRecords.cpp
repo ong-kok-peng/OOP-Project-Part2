@@ -45,3 +45,5 @@ void FreightRecords::editFreight(int index, Freight f) {
 	records.erase(records.begin() + index);
 	records.insert(records.begin() + index, f);
 }
+
+void FreightRecords::clearRecords() { records.clear(); }

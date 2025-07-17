@@ -1,29 +1,36 @@
-#include "FileReader.h"
-#include <fstream>
 /*
 Created by: Chia Boon Pin (2403120)
 Date: 17/7/2025
 */
 
-FileReader::FileReader() {}
+#include "FileReader.h"
+#include <fstream>
 
-FileReader::~FileReader() {}
+FileReader::FileReader() { fileLines = {}; }
 
-std::vector<std::string> FileReader::readFile(const std::string& filename) {
-    std::vector<std::string> lines;
+bool FileReader::readFile(const std::string& filename) {
+    
     std::ifstream inFile(filename);
 
     if (!inFile.is_open()) {
-        return lines;
+        //empty or invalid file path; unable to locate file to open
+        return false;
     }
 
     std::string line;
     while (std::getline(inFile, line)) {
         if (!line.empty()) {
-            lines.push_back(line);
+            fileLines.push_back(line);
         }
     }
 
     inFile.close();
-    return lines;
+    //check if any lines were captured
+
+    if (fileLines.size() > 0) { return true; }
+    else { return false; }
 }
+
+int FileReader::getLineCount() { return fileLines.size(); }
+
+std::string FileReader::getFileLine(int lineNumber) { return fileLines[lineNumber]; }

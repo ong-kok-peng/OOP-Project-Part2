@@ -1,14 +1,14 @@
+/*
+Created by: Yeo Zi Xuan Augustine (2403343)
+Date: 17/7/2025
+*/
+
 #include <iostream>
 #include <string>
 #include <sstream>
 using namespace std;
 
 #include "CargoModifyRecords.h"
-
-/*
-Created by: Yeo Zi Xuan Augustine (2403343)
-Date: 17/7/2025
-*/
 
 CargoModifyRecords::CargoModifyRecords(CargoRecords& cr) : cr{ cr } {}
 
@@ -29,9 +29,13 @@ void CargoModifyRecords::editRecord() {
 	//check if ID exists
 	int recordIndex = cr.getRecordIndex(id);
 	if (recordIndex == -1) {
+		//ID doesn't exist, unable to edit record
+
 		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
 	}
 	else {
+		//ID exists, proceed to edit record
+
 		Cargo currentRecord = cr.getCargo(recordIndex);
 		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldQuantity = currentRecord.getQuantity();
 		cout << "\nThe original record is:\n";
@@ -113,20 +117,19 @@ void CargoModifyRecords::deleteRecord() {
 			//old quantity is > 1, prompt user whether to remove some quantity or remove the whole record
 
 			int removeQuantity;
-			cout << "Would you like to add more quantity? Enter quantity to remove." << 
+			cout << "Would you like to remove some quantity? Enter quantity to remove." << 
 				"\nOr enter exact original quantity to delete whole record, or enter 0 to cancel: \n";
 			cin >> removeQuantity;
 
 			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
 			if (removeQuantity == 0) { cout << "\nAdd cargo is cancelled. Press enter to go back.\n"; }
-			if (removeQuantity == oldQuantity) { cr.deleteCargo(recordIndex); cout << "\nSuccess: record is deleted! Press enter to go back.\n"; }
-			
-			if (currentRecord.setQuantity(oldQuantity - removeQuantity)) { 
+			else if (removeQuantity == oldQuantity) { cr.deleteCargo(recordIndex); cout << "\nSuccess: record is deleted! Press enter to go back.\n"; }
+			else if (currentRecord.setQuantity(oldQuantity - removeQuantity)) { 
 				cr.editCargo(recordIndex, currentRecord);
 				cout << "\nSuccess: record quantity is reduced! Press enter to go back\n"; 
 			}
-			else { cout << "\nError: reduced quantity is less than 0.\n"; }
+			else { cout << "\nError: reduced quantity is cannot be lesser than 1.\n"; }
 		}
 		else {
 			//old quantity is onlly 1, prompt user to confirm delete

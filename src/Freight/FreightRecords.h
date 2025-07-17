@@ -22,6 +22,7 @@ public:
 	void addFreight(Freight f);
 	void deleteFreight(int index);
 	void editFreight(int index, Freight f);
+	void clearRecords();
 };
 
 #endif

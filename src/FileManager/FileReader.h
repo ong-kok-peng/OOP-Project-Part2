@@ -7,9 +7,12 @@ Date: 17/7/2025
 */
 
 class FileReader {
+private:
+    std::vector<std::string> fileLines;
 public:
     FileReader();
-    ~FileReader();
 
-    std::vector<std::string> readFile(const std::string& filename);
+    bool readFile(const std::string& filename);
+    int getLineCount();
+    std::string getFileLine(int lineNumber);
 };

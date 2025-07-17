@@ -1,3 +1,9 @@
+/*
+Created by: Ong Kok Peng (2403435)
+Date: 13/7/2025
+*/
+
+
 #include <iostream>
 #include <string>
 
@@ -15,7 +21,7 @@ using namespace std;
 #include "src/Displayers/CargoDisplayData.h"
 
 //local function prototype
-void showDataMenu(int mainMenuSelection);
+void showDataMenu(int mainMenuSelection, FreightRecords& fr, CargoRecords& cr);
 void clearScreen();
 void waitForKey();
 
@@ -33,11 +39,10 @@ void clearScreen() {
 #endif
 }
 
-void showDataMenu(int mainMenuSelection) {
+void showDataMenu(int mainMenuSelection, FreightRecords &fr, CargoRecords &cr) {
     string mode;
 
-    //initialize objects
-    FreightRecords fr; CargoRecords cr;
+    //initialize builder, displayer and exporter objects
     FreightAddRecords addFR(fr); FreightModifyRecords modifyFR(fr); FreightDisplayData displayFR(fr);
     CargoAddRecords addCR(cr); CargoModifyRecords modifyCR(cr); CargoDisplayData displayCR(cr);
 
@@ -49,12 +54,12 @@ void showDataMenu(int mainMenuSelection) {
 
         clearScreen();
         cout << "\n------- Menu for " << mode << ": Please select an option ---------\n";
-        cout << "1. Open/re-open " << mode << " information file\n";
-        cout << "2. Display " << mode << " information.\n";
-        cout << "3. Add " << mode << " information.\n";
-        cout << "4. Delete " << mode << " information.\n";
-        cout << "5. Edit " << mode << " Information.\n";
-        cout << "6. Save " << mode << " information to a new file\n";
+        cout << "1. Open/re-open " << mode << " records file\n";
+        cout << "2. Display " << mode << " records.\n";
+        cout << "3. Add " << mode << " record.\n";
+        cout << "4. Delete " << mode << " record.\n";
+        cout << "5. Edit " << mode << " record.\n";
+        cout << "6. Save " << mode << " records to a new file\n";
         cout << "0. Go back.\n";
         cout << "Option: ";
 
@@ -123,6 +128,9 @@ void showDataMenu(int mainMenuSelection) {
 }
 
 int main() {
+    //initialize business data objects
+    FreightRecords fr; CargoRecords cr;
+
     while (true) {
         int mainMenuSelection;
 
@@ -149,11 +157,11 @@ int main() {
         switch (mainMenuSelection) {
         case 1:
             clearScreen();
-            showDataMenu(mainMenuSelection);
+            showDataMenu(mainMenuSelection, fr, cr);
             break;
         case 2:
             clearScreen();
-            showDataMenu(mainMenuSelection);
+            showDataMenu(mainMenuSelection, fr, cr);
             break;
         case 3:
             clearScreen();
