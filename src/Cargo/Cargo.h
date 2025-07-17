@@ -20,8 +20,8 @@ public:
     // Setters
     bool setId(std::string id);
     bool setQuantity(int quantity);
-    void setDestination(std::string dest);
-    void setTime(std::string time);
+    bool setDestination(std::string dest);
+    bool setTime(std::string time);
 
     // Getters
     std::string getId() const;
