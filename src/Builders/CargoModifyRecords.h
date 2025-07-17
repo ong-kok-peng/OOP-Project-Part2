@@ -8,12 +8,15 @@
 
 class CargoModifyRecords : public IModifyRecords {
 private:
-    CargoRecords& cargoRecords;
+    CargoRecords& cr;
 
 public:
     CargoModifyRecords(CargoRecords& cr);
-    void modifyRecord(int index) override;
-    void deleteRecord(int index) override;
+    void editRecord() override;
+    void deleteRecord() override;
 };
 
 #endif
+
+
+
