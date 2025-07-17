@@ -8,12 +8,11 @@
 
 class CargoDisplayRecords : public IDisplayRecords {
 private:
-    IReadCargoRecords* readCR;
+    IReadCargoRecords& readCR;
 
 public:
-    CargoDisplayRecords(IReadCargoRecords* rcr);
-    void displayRecord() override;
-    void saveRecordsToFile() override;
+    CargoDisplayRecords(IReadCargoRecords& readCR);
+    void displayRecords() override;
 };
 
-#endif
+#endif#pragma once
