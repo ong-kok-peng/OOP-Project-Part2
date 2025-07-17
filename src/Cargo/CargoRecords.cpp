@@ -83,3 +83,20 @@ void CargoRecords::deleteCargoRecord(int index) {
 std::vector<Cargo> CargoRecords::getAllRecords() const {
     return records;
 }
+int CargoRecords::findRecordById(const std::string& id) const {
+    for (int i = 0; i < records.size(); ++i) {
+        if (records[i].getId() == id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Return record at index
+Cargo CargoRecords::getRecord(int index) const {
+    if (index >= 0 && index < records.size()) {
+        return records[index];
+    } else {
+        throw std::out_of_range("Invalid index in getRecord");
+    }
+}
