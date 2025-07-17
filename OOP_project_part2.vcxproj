@@ -43,6 +43,9 @@
     <ClInclude Include="src\Freight\FreightRecords.h" />
     <ClInclude Include="src\Freight\IReadFreightRecords.h" />
     <ClInclude Include="src\TransportEntity\TransportEntity.h" />
+	  <ClCompile Include="src\Builders\CargoAddRecords.cpp" />
+	  <ClCompile Include="src\Builders\CargoModifyRecords.cpp" />
+	  <ClCompile Include="src\Displayers\CargoDisplayRecords.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
