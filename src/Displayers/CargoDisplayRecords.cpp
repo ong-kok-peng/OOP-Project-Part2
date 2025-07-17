@@ -1,40 +1,30 @@
-#include "CargoDisplayRecords.h"
-#include "../Utils/FileWriter.h"
 #include <iostream>
-#include <fstream>
 #include <string>
-
 using namespace std;
 
-// Constructor
-CargoDisplayRecords::CargoDisplayRecords(IReadCargoRecords* rcr) : readCR(rcr) {}
+#include "CargoDisplayRecords.h"
 
-// Display all cargo records to console
-void CargoDisplayRecords::displayRecord() {
-    vector<Cargo> cargos = readCR->getAllRecords();
-    for (const Cargo& c : cargos) {
-        cout << "ID: " << c.getId()
-             << ", Destination: " << c.getDestination()
-             << ", Time: " << c.getTime()
-             << ", Quantity: " << c.getQuantity() << endl;
+CargoDisplayRecords::CargoDisplayRecords(IReadCargoRecords& readCR) : readCR{ readCR } {}
+
+void CargoDisplayRecords::displayRecords() {
+    cout << "------ Displaying Cargo Records ------\n\n";
+
+    if (readCR.getRecordsSize() == 0) {
+        cout << "There are no records. Add a new record or import from a file.\n";
+        return;
     }
-}
+    cout << "ID\tDestination\tTime\tCargo Quantity\n";
+    for (int recordIndx = 0; recordIndx < readCR.getRecordsSize(); recordIndx++) {
+        Cargo therecord = readCR.getCargo(recordIndx);
 
-// Save cargo records to a file
-void CargoDisplayRecords::saveRecordsToFile() {
-    string filename;
-    cout << "Enter filename to save cargo records: ";
-    cin >> filename;
+        cout << therecord.getId() << "\t";
 
-    vector<Cargo> cargos = readCR->getAllRecords();
-    vector<string> lines;
+        if (therecord.getDestination().length() <= 7) { cout << therecord.getDestination() << "\t\t"; }
+        else { cout << therecord.getDestination() << "\t"; }
 
-    for (const Cargo& c : cargos) {
-        string line = c.getId() + "," + c.getDestination() + "," + c.getTime() + "," + to_string(c.getQuantity());
-        lines.push_back(line);
+        cout << therecord.getTime() << "\t";
+
+        cout << therecord.getQuantity() << "\n";
     }
-
-    FileWriter writer;
-    writer.writeFile(filename, lines);
-    cout << "Cargo records saved to file successfully." << endl;
+    cout << "\n";
 }
