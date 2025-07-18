@@ -24,6 +24,8 @@ public:
     // Setters
     bool setId(std::string id);
     bool setQuantity(int quantity);
+    std::string getDestination() const;
+    std::string getTime() const;
 
     // Getters
     std::string getId() const;
