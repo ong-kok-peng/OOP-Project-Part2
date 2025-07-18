@@ -22,6 +22,9 @@ public:
 	string getId();
 	string getName();
 	int getCapacity();
+	string getId() const;
+	string getName() const;
+
 };
 
 #endif
