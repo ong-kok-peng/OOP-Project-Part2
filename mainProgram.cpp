@@ -20,6 +20,9 @@ using namespace std;
 #include "src/Builders/CargoModifyRecords.h"
 #include "src/Displayers/CargoDisplayData.h"
 
+#include "src/Exporters/FreightExportData.h"
+#include "src/Exporters/CargoExportData.h"
+
 //local function prototype
 void showDataMenu(int mainMenuSelection, FreightRecords& fr, CargoRecords& cr);
 void clearScreen();
@@ -43,8 +46,8 @@ void showDataMenu(int mainMenuSelection, FreightRecords &fr, CargoRecords &cr) {
     string mode;
 
     //initialize builder, displayer and exporter objects
-    FreightAddRecords addFR(fr); FreightModifyRecords modifyFR(fr); FreightDisplayData displayFR(fr);
-    CargoAddRecords addCR(cr); CargoModifyRecords modifyCR(cr); CargoDisplayData displayCR(cr);
+    FreightAddRecords addFR(fr); FreightModifyRecords modifyFR(fr); FreightDisplayData displayFR(fr); FreightExportData freightExporter(fr);
+    CargoAddRecords addCR(cr); CargoModifyRecords modifyCR(cr); CargoDisplayData displayCR(cr); CargoExportData cargoExporter(cr);
 
     if (mainMenuSelection == 1) { mode = "Freight"; }
     else if (mainMenuSelection == 2) { mode = "Cargo"; }
@@ -116,8 +119,8 @@ void showDataMenu(int mainMenuSelection, FreightRecords &fr, CargoRecords &cr) {
         case 6:
             //save freighter/cargoItem data to a new file
             clearScreen();
-            if (mainMenuSelection == 1) { } //exportFreightRecord();
-            else if (mainMenuSelection == 2) { } //exportCargoRecord();
+            if (mainMenuSelection == 1) { freightExporter.exportRecords(); } //exportFreightRecord();
+            else if (mainMenuSelection == 2) { cargoExporter.exportRecords(); } //exportCargoRecord();
             waitForKey();
             break;
         default:
