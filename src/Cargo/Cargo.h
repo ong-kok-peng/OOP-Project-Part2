@@ -14,8 +14,6 @@ Date: 13/7/2025
 class Cargo : public TransportEntity {
 private:
     std::string id;
-    std::string destination;
-    std::string time;
     int quantity;
 
 public:
@@ -24,8 +22,6 @@ public:
     // Setters
     bool setId(std::string id);
     bool setQuantity(int quantity);
-    std::string getDestination() const;
-    std::string getTime() const;
 
     // Getters
     std::string getId() const;

@@ -41,18 +41,12 @@ int Cargo::getQuantity() const {
     return quantity;
 }
 
-std::string Cargo::getDestination() const {
-	return destination;
-}
-
-std::string Cargo::getTime() const {
-	return time;
-}
-
 /* test main code
 int main() {
-	Cargo c("Singapore", "2300", "F05", 6);
-	cout << c.getTime();
+	Cargo cargo;
+	cargo.setTime("1240"); cargo.setQuantity(8);
+	cout << cargo.getTime() << "\n";
+	cout << cargo.getQuantity();
 
 	return 0;
 }

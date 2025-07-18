@@ -19,8 +19,6 @@ public:
 	Freight();
 	bool setId(string id);
 	bool setName(string name);
-	string getId();
-	string getName();
 	int getCapacity();
 	string getId() const;
 	string getName() const;

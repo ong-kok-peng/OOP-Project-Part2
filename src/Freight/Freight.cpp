@@ -44,21 +44,18 @@ bool Freight::setName(string name) {
 	else { return false; } // value when validation fails
 }
 
-string Freight::getId() { return id; }
-
-string Freight::getName() { return name; }
-
-int Freight::getCapacity() { return capacity; }
-
 string Freight::getId() const { return id; }
 
 string Freight::getName() const { return name; }
 
+int Freight::getCapacity() { return capacity; }
 
 /* test main code
 int main() {
-	Freight f("Singapore", "1230", "F05", "esgsehg");
-	cout << f.getCapacity();
+	Freight freight;
+	freight.setTime("1240"); freight.setName("cargocruiser");
+	cout << freight.getTime(); cout << "\n";
+	cout << freight.getCapacity();
 
 	return 0;
 }
