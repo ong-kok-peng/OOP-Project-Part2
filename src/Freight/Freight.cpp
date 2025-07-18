@@ -50,6 +50,11 @@ string Freight::getName() { return name; }
 
 int Freight::getCapacity() { return capacity; }
 
+string Freight::getId() const { return id; }
+
+string Freight::getName() const { return name; }
+
+
 /* test main code
 int main() {
 	Freight f("Singapore", "1230", "F05", "esgsehg");
