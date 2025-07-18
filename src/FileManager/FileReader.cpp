@@ -4,33 +4,25 @@ Date: 17/7/2025
 */
 
 #include "FileReader.h"
+#include <string>
 #include <fstream>
 
-FileReader::FileReader() { fileLines = {}; }
-
-bool FileReader::readFile(const std::string& filename) {
-    
-    std::ifstream inFile(filename);
-
-    if (!inFile.is_open()) {
-        //empty or invalid file path; unable to locate file to open
-        return false;
-    }
-
-    std::string line;
-    while (std::getline(inFile, line)) {
-        if (!line.empty()) {
-            fileLines.push_back(line);
-        }
-    }
-
-    inFile.close();
-    //check if any lines were captured
-
-    if (fileLines.size() > 0) { return true; }
-    else { return false; }
+FileReader::FileReader(const std::string& filename) :
+    _inputFile(filename), inputFile(_inputFile) {
+    if (!inputFile.is_open()) { fileOpened = false; }
+    else { fileOpened = true; }
 }
 
-int FileReader::getLineCount() { return fileLines.size(); }
+bool FileReader::isFileOpened() { return fileOpened; }
 
-std::string FileReader::getFileLine(int lineNumber) { return fileLines[lineNumber]; }
+std::string FileReader::readLine() {
+    std::string fileLine;
+    if (std::getline(inputFile, fileLine)) {
+        if (fileLine.empty()) { return "blank line"; }
+        else { return fileLine; }
+    }
+    else { 
+        if (inputFile.is_open()) { inputFile.close(); }
+        return "EOF";  
+    }
+}

@@ -3,22 +3,27 @@ Created by: Chia Boon Pin (2403120)
 Date: 17/7/2025
 */
 
-#pragma once
-#include <string>
+#include <fstream>
 
-class FileWriter {
+class FileWriter
+{
+    std::ofstream _outputFile;   // real stream object
+    std::ofstream& outputFile;   // alias reference
+    bool fileOpened;
+
 public:
-    FileWriter();
-    ~FileWriter();
+    explicit FileWriter(const std::string& filename, bool append);
+    ~FileWriter() = default;
 
-    bool writeToFile(const std::string& filename, const std::string& data, bool append = true);
+    FileWriter(const FileWriter&) = delete;
+    FileWriter& operator=(const FileWriter&) = delete;
 
-    // Placeholder for writing cargo export data
-    bool writeCargoExportData(/* const CargoExportData& data */); // variable to input
+    FileWriter(FileWriter&&) noexcept = default;
+    FileWriter& operator=(FileWriter&&) noexcept = default;
 
-    // Placeholder for writing freight export data
-    bool writeFreightExportData(/* const FreightExportData& data */); // variable to input
+    bool isFileOpened();
 
-    // Placeholder for writing scheduler export data
-    bool writeSchedulerExportData(/* const SchedulerExportData& data */); // variable to input
+    bool writeLine(std::string content);  
+
+    void closeFile();
 };

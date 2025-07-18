@@ -12,12 +12,12 @@ using namespace std;
 #include "src/Freight/FreightRecords.h"
 #include "src/Cargo/CargoRecords.h"
 
-#include "src/Builders/FreightAddRecords.h"
-#include "src/Builders/FreightModifyRecords.h"
+#include "src/Adders/FreightAddRecords.h"
+#include "src/Modifiers/FreightModifyRecords.h"
 #include "src/Displayers/FreightDisplayData.h"
 
-#include "src/Builders/CargoAddRecords.h"
-#include "src/Builders/CargoModifyRecords.h"
+#include "src/Adders/CargoAddRecords.h"
+#include "src/Modifiers/CargoModifyRecords.h"
 #include "src/Displayers/CargoDisplayData.h"
 
 #include "src/Exporters/FreightExportData.h"
@@ -117,10 +117,10 @@ void showDataMenu(int mainMenuSelection, FreightRecords &fr, CargoRecords &cr) {
             waitForKey();
             break;
         case 6:
-            //save freighter/cargoItem data to a new file
+            //export freighter/cargoItem data to a new file
             clearScreen();
-            if (mainMenuSelection == 1) { freightExporter.exportRecords(); } //exportFreightRecord();
-            else if (mainMenuSelection == 2) { cargoExporter.exportRecords(); } //exportCargoRecord();
+            if (mainMenuSelection == 1) { freightExporter.exportRecords(); } 
+            else if (mainMenuSelection == 2) { cargoExporter.exportRecords(); } 
             waitForKey();
             break;
         default:
@@ -138,7 +138,7 @@ int main() {
         int mainMenuSelection;
 
         clearScreen();
-        cout << "\n-----------------------------------------------------";
+        cout << "-----------------------------------------------------";
         cout << "\n------- Freight & Cargo Scheduler -------------------\n";
         cout << "1. Work with Freight data.\n";
         cout << "2. Work with Cargo data.\n";

@@ -3,17 +3,25 @@ Created by: Chia Boon Pin (2403120)
 Date: 17/7/2025
 */
 
-#pragma once
-#include <string>
-#include <vector>
+#include <fstream>
 
-class FileReader {
-private:
-    std::vector<std::string> fileLines;
+class FileReader
+{
+    std::ifstream _inputFile;   // real stream object
+    std::ifstream& inputFile;   // alias reference
+    bool fileOpened;
+
 public:
-    FileReader();
+    explicit FileReader(const std::string& filename);
+    ~FileReader() = default;
 
-    bool readFile(const std::string& filename);
-    int getLineCount();
-    std::string getFileLine(int lineNumber);
+    FileReader(const FileReader&) = delete;
+    FileReader& operator=(const FileReader&) = delete;
+
+    FileReader(FileReader&&) noexcept = default;
+    FileReader& operator=(FileReader&&) noexcept = default;
+
+    bool isFileOpened();
+
+    std::string readLine();
 };

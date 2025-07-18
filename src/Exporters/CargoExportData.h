@@ -20,4 +20,4 @@ public:
     void exportRecords() override;
 };
 
-#endif#pragma once
+#endif

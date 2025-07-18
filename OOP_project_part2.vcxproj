@@ -19,38 +19,47 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mainProgram.cpp" />
-    <ClCompile Include="src\Builders\FreightAddRecords.cpp" />
-    <ClCompile Include="src\Builders\FreightModifyRecords.cpp" />
+    <ClCompile Include="mainProgram.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\Adders\CargoAddRecords.cpp" />
+    <ClCompile Include="src\Adders\FreightAddRecords.cpp" />
     <ClCompile Include="src\Cargo\Cargo.cpp" />
     <ClCompile Include="src\Cargo\CargoRecords.cpp" />
     <ClCompile Include="src\Displayers\CargoDisplayData.cpp" />
     <ClCompile Include="src\Displayers\FreightDisplayData.cpp" />
+    <ClCompile Include="src\Exporters\CargoExportData.cpp" />
+    <ClCompile Include="src\Exporters\FreightExportData.cpp" />
     <ClCompile Include="src\FileManager\FileReader.cpp" />
+    <ClCompile Include="src\FileManager\FileWriter.cpp" />
     <ClCompile Include="src\Freight\Freight.cpp" />
     <ClCompile Include="src\Freight\FreightRecords.cpp" />
+    <ClCompile Include="src\Modifiers\CargoModifyRecords.cpp" />
+    <ClCompile Include="src\Modifiers\FreightModifyRecords.cpp" />
     <ClCompile Include="src\TransportEntity\TransportEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Builders\CargoAddRecords.h" />
-    <ClInclude Include="src\Builders\CargoModifyRecords.h" />
-    <ClInclude Include="src\Builders\FreightAddRecords.h" />
-    <ClInclude Include="src\Builders\FreightModifyRecords.h" />
-    <ClInclude Include="src\Builders\IAddRecords.h" />
-    <ClInclude Include="src\Builders\IModifyRecords.h" />
+    <ClInclude Include="src\Adders\CargoAddRecords.h" />
+    <ClInclude Include="src\Adders\FreightAddRecords.h" />
+    <ClInclude Include="src\Adders\IAddRecords.h" />
     <ClInclude Include="src\Cargo\Cargo.h" />
     <ClInclude Include="src\Cargo\CargoRecords.h" />
     <ClInclude Include="src\Cargo\IReadCargoRecords.h" />
     <ClInclude Include="src\Displayers\CargoDisplayData.h" />
     <ClInclude Include="src\Displayers\FreightDisplayData.h" />
     <ClInclude Include="src\Displayers\IDisplayData.h" />
+    <ClInclude Include="src\Exporters\CargoExportData.h" />
+    <ClInclude Include="src\Exporters\FreightExportData.h" />
+    <ClInclude Include="src\Exporters\IExportData.h" />
     <ClInclude Include="src\FileManager\FileReader.h" />
+    <ClInclude Include="src\FileManager\FileWriter.h" />
     <ClInclude Include="src\Freight\Freight.h" />
     <ClInclude Include="src\Freight\FreightRecords.h" />
     <ClInclude Include="src\Freight\IReadFreightRecords.h" />
+    <ClInclude Include="src\Modifiers\CargoModifyRecords.h" />
+    <ClInclude Include="src\Modifiers\FreightModifyRecords.h" />
+    <ClInclude Include="src\Modifiers\IModifyRecords.h" />
     <ClInclude Include="src\TransportEntity\TransportEntity.h" />
-    <ClCompile Include="src\Builders\CargoAddRecords.cpp" />
-    <ClCompile Include="src\Builders\CargoModifyRecords.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

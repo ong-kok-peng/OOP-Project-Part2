@@ -33,3 +33,17 @@ void FreightDisplayData::displayRecords() {
     }
     cout << "\n";
 }
+
+/* test main code
+#include "../Freight/FreightRecords.h"
+#include "../Builders/FreightAddRecords.h"
+int main() {
+	FreightRecords fr;
+	FreightAddRecords addFR(fr); FreightDisplayData displayFR(fr);
+
+	addFR.addRecord();
+	displayFR.displayRecords();
+
+	return 0;
+}
+*/

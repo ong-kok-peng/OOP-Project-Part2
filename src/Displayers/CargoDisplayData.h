@@ -20,4 +20,4 @@ public:
     void displayRecords() override;
 };
 
-#endif#pragma once
+#endif
