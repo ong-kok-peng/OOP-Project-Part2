@@ -18,6 +18,7 @@ private:
 	vector<Cargo> records;
 
 public:
+	struct recordOutcome { string status = ""; string message = ""; };
 	CargoRecords();
 	int getRecordsSize() override;
 	Cargo getCargo(int index) override;
@@ -25,9 +26,11 @@ public:
 	void sortCargoByQuantity() override;
 
 	int getRecordIndex(string id);
-	void addCargo(Cargo c);
-	void deleteCargo(int index);
-	void editCargo(int index, Cargo c);
+	recordOutcome addCargo(string userInput);
+	recordOutcome appendCargo(int addQuantity, int index, Cargo currentRecord);
+	recordOutcome deleteCargo(int index, char deleteYesNo);
+	recordOutcome removeCargo(int removeQuantity, int index, Cargo currentRecord);
+	recordOutcome editCargo(string userInput, int index, Cargo currentRecord);
 	void clearRecords();
 };
 

@@ -17,6 +17,7 @@ private:
 	vector<Freight> records;
 
 public:
+	struct recordOutcome { string status = ""; string message = ""; };
 	FreightRecords();
 	int getRecordsSize() override;
 	Freight getFreight(int index) override;
@@ -24,9 +25,9 @@ public:
 	void sortFreightByQuantity() override;
 
 	int getRecordIndex(string id);
-	void addFreight(Freight f);
-	void deleteFreight(int index);
-	void editFreight(int index, Freight f);
+	recordOutcome addFreight(string userInput);
+	recordOutcome deleteFreight(int index, char deleteYesNo);
+	recordOutcome editFreight(string userInput, int index, Freight currentRecord);
 	void clearRecords();
 };
 
