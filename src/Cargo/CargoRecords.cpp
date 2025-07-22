@@ -7,6 +7,7 @@ Date: 13/7/2025
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 
 #include "CargoRecords.h"
@@ -18,34 +19,50 @@ CargoRecords::CargoRecords() {
 // displayer functions
 int CargoRecords::getRecordsSize() { return records.size(); }
 
-Cargo CargoRecords::getCargo(int index) { return records[index]; }
+Cargo CargoRecords::getCargoByIndex(int index) { return records[index]; }
 
-void CargoRecords::sortCargoByTime() {
+CargoRecords::getRecordOutcome CargoRecords::getCargoById(string id) {
+	getRecordOutcome ro;
 
-}
-
-void CargoRecords::sortCargoByQuantity() {
-
-}
-
-// builder functions
-int CargoRecords::getRecordIndex(string id) {
 	auto iterator = find_if(records.begin(), records.end(), [id](Cargo& c) {
-		return id.compare(c.getId()) == 0;
+		return id == c.getId();
 		});
 
 	if (iterator != records.end()) {
-		return (distance(records.begin(), iterator));
+		int index = distance(records.begin(), iterator);
+		ro.status = "FOUND"; ro.index = index; ro.currentRecord = records[index]; return ro;
 	}
-	else { return -1; }
+	else { ro.status = "NOT_FOUND"; return ro; }
 }
+
+void CargoRecords::sortCargoByTime() {
+	//sort by ascending destination order, with ascending time order so as to priortize earliest freight
+	sort(records.begin(), records.end(), [](Cargo& prevCargo, Cargo& nextCargo) {
+		bool equalDestination = (prevCargo.getDestination() == nextCargo.getDestination());
+
+		return (prevCargo.getDestination() < nextCargo.getDestination()) ||
+			(equalDestination && prevCargo.getTime() < nextCargo.getTime());
+		});
+}
+
+void CargoRecords::sortCargoByQuantity() {
+	//sort by ascending destination order, with ascending quantity order so as to clear as many cargo as possible without much freight overflowing
+	sort(records.begin(), records.end(), [](Cargo& prevCargo, Cargo& nextCargo) {
+		bool equalDestination = (prevCargo.getDestination() == nextCargo.getDestination());
+
+		return (prevCargo.getDestination() < nextCargo.getDestination()) ||
+			(equalDestination && prevCargo.getQuantity() < nextCargo.getQuantity());
+		});
+}
+
+// builder functions
 
 // if user adds cargo of same ID (already exists), call appendCargo()
 // otherwise if ID never exists, just addCargo()
-CargoRecords::recordOutcome CargoRecords::addCargo(string userInput) {
+CargoRecords::modifyRecordOutcome CargoRecords::addCargo(string userInput) {
 	//parse user input
 	string id, destination, time, quantityStr; int quantity;
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (userInput.empty()) { ro.status = "ERROR"; ro.message = "Error: user input is blank."; return ro; } //blank input
 
@@ -79,9 +96,9 @@ CargoRecords::recordOutcome CargoRecords::addCargo(string userInput) {
 	}
 }
 
-CargoRecords::recordOutcome CargoRecords::appendCargo(int addQuantity, int index, Cargo currentRecord) {
+CargoRecords::modifyRecordOutcome CargoRecords::appendCargo(int addQuantity, int index, Cargo currentRecord) {
 	//parse user input
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (addQuantity == 0) { 
 		ro.status = "CANCELLED"; return ro; //append cargo is cancelled
@@ -99,9 +116,9 @@ CargoRecords::recordOutcome CargoRecords::appendCargo(int addQuantity, int index
 
 // if user deletes cargo that has quantity > 1, call removeCargo()
 // if delete entire cargo, call function deleteCargo()
-CargoRecords::recordOutcome CargoRecords::deleteCargo(int index, char deleteYesNo) {
+CargoRecords::modifyRecordOutcome CargoRecords::deleteCargo(int index, char deleteYesNo) {
 	//parse user input
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (deleteYesNo == 'N' || deleteYesNo == 'n') {
 		ro.status = "CANCELLED"; return ro; //delete cancelled
@@ -115,9 +132,9 @@ CargoRecords::recordOutcome CargoRecords::deleteCargo(int index, char deleteYesN
 	}
 }
 
-CargoRecords::recordOutcome CargoRecords::removeCargo(int removeQuantity, int index, Cargo currentRecord) {
+CargoRecords::modifyRecordOutcome CargoRecords::removeCargo(int removeQuantity, int index, Cargo currentRecord) {
 	//parse user input
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (removeQuantity == 0) {
 		ro.status = "CANCELLED"; return ro; //remove cargo is cancelled
@@ -137,10 +154,10 @@ CargoRecords::recordOutcome CargoRecords::removeCargo(int removeQuantity, int in
 	}
 }
 
-CargoRecords::recordOutcome CargoRecords::editCargo(string userInput, int index, Cargo currentRecord) {
+CargoRecords::modifyRecordOutcome CargoRecords::editCargo(string userInput, int index, Cargo currentRecord) {
 	//parse user input
 	string newDestination, newTime, newQuantityStr;
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (userInput.empty()) { ro.status = "RECORD_UNCHANGED"; return ro; } //blank input, hence record not edited
 

@@ -12,10 +12,12 @@ Date: 13/7/2025
 
 class IReadFreightRecords{
 public:
+	struct getRecordOutcome { string status = ""; int index = -1; Freight currentRecord; };
 	virtual int getRecordsSize() = 0;
-	virtual Freight getFreight(int index) = 0;
+	virtual Freight getFreightByIndex(int index) = 0;
+	virtual getRecordOutcome getFreightById(string id) = 0;
 	virtual void sortFreightByTime() = 0;
-	virtual void sortFreightByQuantity() = 0;
+	virtual void sortFreightByCapacity() = 0;
 };
 
 #endif

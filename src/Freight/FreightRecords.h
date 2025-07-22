@@ -17,17 +17,18 @@ private:
 	vector<Freight> records;
 
 public:
-	struct recordOutcome { string status = ""; string message = ""; };
+	struct modifyRecordOutcome { string status = ""; string message = ""; };
 	FreightRecords();
 	int getRecordsSize() override;
-	Freight getFreight(int index) override;
-	void sortFreightByTime() override;
-	void sortFreightByQuantity() override;
+	Freight getFreightByIndex(int index) override;
+	getRecordOutcome getFreightById(string id) override;
 
-	int getRecordIndex(string id);
-	recordOutcome addFreight(string userInput);
-	recordOutcome deleteFreight(int index, char deleteYesNo);
-	recordOutcome editFreight(string userInput, int index, Freight currentRecord);
+	void sortFreightByTime() override;
+	void sortFreightByCapacity() override;
+
+	modifyRecordOutcome addFreight(string userInput);
+	modifyRecordOutcome deleteFreight(int index, char deleteYesNo);
+	modifyRecordOutcome editFreight(string userInput, int index, Freight currentRecord);
 	void clearRecords();
 };
 

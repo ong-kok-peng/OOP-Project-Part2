@@ -6,6 +6,7 @@ Date: 13/7/2025
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 
 #include "FreightRecords.h"
@@ -17,32 +18,47 @@ FreightRecords::FreightRecords() {
 // displayer functions
 int FreightRecords::getRecordsSize() { return records.size(); }
 
-Freight FreightRecords::getFreight(int index) { return records[index]; }
+Freight FreightRecords::getFreightByIndex(int index) { return records[index]; }
 
-void FreightRecords::sortFreightByTime() {
+FreightRecords::getRecordOutcome FreightRecords::getFreightById(string id) {
+	getRecordOutcome ro;
 
-}
-
-void FreightRecords::sortFreightByQuantity() {
-
-}
-
-// builder functions
-int FreightRecords::getRecordIndex(string id) {
-	auto iterator = find_if(records.begin(), records.end(), [id](Freight& f) {
-		return id.compare(f.getId()) == 0;
+	auto iterator = find_if(records.begin(), records.end(), [id](Freight& c) {
+		return id.compare(c.getId()) == 0;
 		});
 
 	if (iterator != records.end()) {
-		return (distance(records.begin(), iterator));
+		int index = distance(records.begin(), iterator);
+		ro.status = "FOUND"; ro.index = index; ro.currentRecord = records[index]; return ro;
 	}
-	else { return -1; }
+	else { ro.status = "NOT_FOUND"; return ro; }
 }
 
-FreightRecords::recordOutcome FreightRecords::addFreight(string userInput) {
+void FreightRecords::sortFreightByTime() {
+	//sort by ascending destination order, with ascending time order so as to priortize earliest freight
+	sort(records.begin(), records.end(), [](Freight& prevFreight, Freight& nextFreight) {
+		bool equalDestination = prevFreight.getDestination().compare(nextFreight.getDestination()) == 0;
+
+		return (prevFreight.getDestination() < nextFreight.getDestination()) ||
+			(equalDestination && prevFreight.getTime() < nextFreight.getTime());
+		});
+}
+
+void FreightRecords::sortFreightByCapacity() {
+	//sort by ascending destination order, with descending capacity order so as to fill in as many cargo as possible.
+	sort(records.begin(), records.end(), [](Freight& prevFreight, Freight& nextFreight) {
+		bool equalDestination = prevFreight.getDestination().compare(nextFreight.getDestination()) == 0;
+
+		return (prevFreight.getDestination() < nextFreight.getDestination()) ||
+			(equalDestination && prevFreight.getCapacity() > nextFreight.getCapacity());
+		});
+}
+
+// builder functions
+FreightRecords::modifyRecordOutcome FreightRecords::addFreight(string userInput) {
 	//parse user input
 	string id, destination, time, name;
-	recordOutcome ro; 
+	modifyRecordOutcome ro; 
 	
 	if (userInput.empty()) { ro.status = "ERROR"; ro.message = "Error: user input is blank."; return ro; } //blank input
 
@@ -54,11 +70,11 @@ FreightRecords::recordOutcome FreightRecords::addFreight(string userInput) {
 	}
 	else {
 		//check if ID exists
-		if (getRecordIndex(id) != -1) {
+		if (getFreightById(id).status.compare("FOUND") == 0) {
 			 //ID already exists.
 			ro.status = "ERROR"; ro.message = "Error: ID already exists."; return ro;
 		}
-		else {
+		else if (getFreightById(id).status.compare("NOT_FOUND") == 0) {
 			//validate all values and add freight object to records collection
 
 			Freight newRecord;
@@ -77,9 +93,9 @@ FreightRecords::recordOutcome FreightRecords::addFreight(string userInput) {
 	}
 }
 
-FreightRecords::recordOutcome FreightRecords::deleteFreight(int index, char deleteYesNo) {
+FreightRecords::modifyRecordOutcome FreightRecords::deleteFreight(int index, char deleteYesNo) {
 	//parse user input
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if (deleteYesNo == 'N' || deleteYesNo == 'n') {
 		ro.status = "CANCELLED"; return ro; //delete cancelled
@@ -93,10 +109,10 @@ FreightRecords::recordOutcome FreightRecords::deleteFreight(int index, char dele
 	}
 }
 
-FreightRecords::recordOutcome FreightRecords::editFreight(string userInput, int index, Freight currentRecord) {
+FreightRecords::modifyRecordOutcome FreightRecords::editFreight(string userInput, int index, Freight currentRecord) {
 	//parse user input
 	string newDestination, newTime, newName;
-	recordOutcome ro;
+	modifyRecordOutcome ro;
 
 	if(userInput.empty()) { ro.status = "RECORD_UNCHANGED"; return ro; } //blank input, hence record not edited
 
