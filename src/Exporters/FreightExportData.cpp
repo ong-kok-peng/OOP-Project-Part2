@@ -34,7 +34,7 @@ void FreightExportData::exportRecords() {
 
     writer.writeLine(header); //write header as line 1
     for (int i = 0; i < readFR.getRecordsSize(); ++i) {
-        Freight f = readFR.getFreight(i);
+        Freight f = readFR.getFreightByIndex(i);
         string line = f.getId() + "," + f.getDestination() + "," + f.getTime() + "," + f.getName() + "\n";
         writer.writeLine(line);
     }

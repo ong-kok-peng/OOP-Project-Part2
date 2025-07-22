@@ -27,16 +27,17 @@ void CargoModifyRecords::editRecord() {
 	id = userInput;
 
 	//check if ID exists
-	int recordIndex = cr.getRecordIndex(id);
-	if (recordIndex == -1) {
+	CargoRecords::getRecordOutcome getRecordOutcome = cr.getCargoById(userInput);
+
+	if (getRecordOutcome.status.compare("NOT_FOUND") == 0) {
 		//ID doesn't exist, unable to edit record
-		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
+		cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; return;
 	}
-	else {
+	else if (getRecordOutcome.status.compare("FOUND") == 0) {
 		//ID exists, proceed to edit record. Prompt user to type new values for the cargo record. 
 		// if any attribute is unchanged, put a blank
 
-		Cargo currentRecord = cr.getCargo(recordIndex);
+		Cargo currentRecord = getRecordOutcome.currentRecord; int recordIndex = getRecordOutcome.index;
 		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldQuantity = currentRecord.getQuantity();
 		cout << "\nThe original record is:\n";
 		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Quantity: " << oldQuantity << ".\n\n";
@@ -46,24 +47,24 @@ void CargoModifyRecords::editRecord() {
 
 		if (userInput.compare("CANCEL") == 0) { cout << "\nEdit cargo is cancelled. Press enter to go back.\n"; return; }
 
-		CargoRecords::recordOutcome editRecordOutcome = cr.editCargo(userInput, recordIndex, currentRecord);
+		CargoRecords::modifyRecordOutcome editCargoOutcome = cr.editCargo(userInput, recordIndex, currentRecord);
 
 		//handle edit record outcome
-		if (editRecordOutcome.status.compare("OK") == 0) {
+		if (editCargoOutcome.status.compare("OK") == 0) {
 			cout << "Success, record is edited! Press enter to go back\n"; //freight edit success
 		}
-		else if (editRecordOutcome.status.compare("RECORD_UNCHANGED") == 0) {
+		else if (editCargoOutcome.status.compare("RECORD_UNCHANGED") == 0) {
 			cout << "Record is not edited at all. Press enter to go back\n"; //freight is not edited 
 		}
-		else if (editRecordOutcome.status.compare("ERROR") == 0) {
-			cout << editRecordOutcome.message << "\nPress enter to go back\n"; //freight edit failure, print error message
+		else if (editCargoOutcome.status.compare("ERROR") == 0) {
+			cout << editCargoOutcome.message << "\nPress enter to go back\n"; //freight edit failure, print error message
 		}
 	}
 }
 
 void CargoModifyRecords::deleteRecord() {
 	//since cargo with same ID can contain up to 10 quantity, check if quantity is more than 1
-	string userInput, id, oldDestination, oldTime; int oldQuantity;
+	string userInput;
 	char deleteYesNo;
 
 	cout << "------ Delete Existing Cargo Record ------\n\n";
@@ -75,20 +76,20 @@ void CargoModifyRecords::deleteRecord() {
 	if (userInput.compare("CANCEL") == 0) { cout << "\nDelete cargo is cancelled. Press enter to go back.\n"; return; }
 
 	//check if ID exists
-	id = userInput; int recordIndex = cr.getRecordIndex(id);
-	if (recordIndex == -1) {
+	CargoRecords::getRecordOutcome getRecordOutcome = cr.getCargoById(userInput);
+
+	if (getRecordOutcome.status.compare("NOT_FOUND") == 0) {
 		//ID doesn't exist in records, unable to delete
-		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
+		cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; return;
 	}
-	else {
+	else if (getRecordOutcome.status.compare("FOUND") == 0) {
 		//ID exisits in records
 
-		Cargo currentRecord = cr.getCargo(recordIndex);
-		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldQuantity = currentRecord.getQuantity();
+		Cargo currentRecord = getRecordOutcome.currentRecord; int recordIndex = getRecordOutcome.index;
 		cout << "\nThe original record is:\n";
-		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Quantity: " << oldQuantity << ".\n\n";
+		cout << "Destination: " << currentRecord.getDestination() << "; Time: " << currentRecord.getTime() << "; Quantity: " << currentRecord.getQuantity() << ".\n\n";
 
-		if (oldQuantity > 1) {
+		if (currentRecord.getQuantity() > 1) {
 			//old quantity is > 1, prompt user whether to remove some quantity or remove the whole record
 
 			int removeQuantity;
@@ -98,7 +99,7 @@ void CargoModifyRecords::deleteRecord() {
 
 			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-			CargoRecords::recordOutcome removeCargoOutcome = cr.removeCargo(removeQuantity, recordIndex, currentRecord);
+			CargoRecords::modifyRecordOutcome removeCargoOutcome = cr.removeCargo(removeQuantity, recordIndex, currentRecord);
 
 			if (removeCargoOutcome.status.compare("CANCELLED") == 0) {
 				cout << "\nRemove cargo cancelled. Press enter to go back.\n";
@@ -120,7 +121,7 @@ void CargoModifyRecords::deleteRecord() {
 
 			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-			CargoRecords::recordOutcome deleteRecordOutcome = cr.deleteCargo(recordIndex, deleteYesNo);
+			CargoRecords::modifyRecordOutcome deleteRecordOutcome = cr.deleteCargo(recordIndex, deleteYesNo);
 
 			//handle delete record outcome
 			if (deleteRecordOutcome.status.compare("OK") == 0) {

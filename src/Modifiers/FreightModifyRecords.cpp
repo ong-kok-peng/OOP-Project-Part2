@@ -12,7 +12,7 @@ using namespace std;
 FreightModifyRecords::FreightModifyRecords(FreightRecords& fr) : fr{ fr } {}
 
 void FreightModifyRecords::editRecord() {
-	string userInput, id, oldDestination, oldTime, oldName;
+	string userInput, oldDestination, oldTime, oldName;
 
 	cout << "------ Edit Existing Freight Record ------\n\n";
 	cout << "Enter the ID you wish to edit.\n";
@@ -23,14 +23,15 @@ void FreightModifyRecords::editRecord() {
 	if (userInput.compare("CANCEL") == 0) { cout << "\nEdit freight is cancelled. Press enter to go back.\n"; return; }
 
 	//check if ID exists
-	id = userInput; int recordIndex = fr.getRecordIndex(id);
-	if (recordIndex == -1) {
-		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
+	FreightRecords::getRecordOutcome getRecordOutcome = fr.getFreightById(userInput);
+
+	if (getRecordOutcome.status.compare("NOT_FOUND") == 0) {
+		cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; return;
 	}
-	else {
+	else if (getRecordOutcome.status.compare("FOUND") == 0) {
 		//show user the current record details, and prompt user to type new values for the freight record. 
 		//if any attribute is unchanged, put a blank
-		Freight currentRecord = fr.getFreight(recordIndex);
+		Freight currentRecord = getRecordOutcome.currentRecord; int recordIndex = getRecordOutcome.index;
 		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldName = currentRecord.getName();
 		cout << "\nThe original record is:\n";
 		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Name: " << oldName << ".\n\n";
@@ -40,7 +41,7 @@ void FreightModifyRecords::editRecord() {
 
 		if (userInput.compare("CANCEL") == 0) { cout << "\nEdit freight is cancelled. Press enter to go back.\n"; return; }
 
-		FreightRecords::recordOutcome editRecordOutcome = fr.editFreight(userInput, recordIndex, currentRecord);
+		FreightRecords::modifyRecordOutcome editRecordOutcome = fr.editFreight(userInput, recordIndex, currentRecord);
 
 		//handle edit record outcome
 		if (editRecordOutcome.status.compare("OK") == 0) {
@@ -59,7 +60,7 @@ void FreightModifyRecords::editRecord() {
 }
 
 void FreightModifyRecords::deleteRecord() {
-	string userInput, id, oldDestination, oldTime, oldName;
+	string userInput;
 	char deleteYesNo;
 
 	cout << "------ Delete Existing Freight Record ------\n\n";
@@ -70,26 +71,24 @@ void FreightModifyRecords::deleteRecord() {
 
 	if (userInput.compare("CANCEL") == 0) { cout << "\nDelete freight is cancelled. Press enter to go back.\n"; return; }
 
-	id = userInput;
-
 	//check if ID exists
-	int recordIndex = fr.getRecordIndex(id);
-	if (recordIndex == -1) {
-		cout << "Error: Empty input or the ID \"" << id << "\" does not exist. Press enter to go back.\n"; return;
+	FreightRecords::getRecordOutcome getRecordOutcome = fr.getFreightById(userInput);
+
+	if (getRecordOutcome.status.compare("NOT_FOUND") == 0) {
+		cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; return;
 	}
-	else {
+	else if (getRecordOutcome.status.compare("FOUND") == 0) {
 		//show user the current record details and prompt user to confirm the delete
 
-		Freight currentRecord = fr.getFreight(recordIndex);
-		oldDestination = currentRecord.getDestination(); oldTime = currentRecord.getTime(); oldName = currentRecord.getName();
+		Freight currentRecord = getRecordOutcome.currentRecord; int recordIndex = getRecordOutcome.index;
 		cout << "\nThe original record is:\n";
-		cout << "Destination: " << oldDestination << "; Time: " << oldTime << "; Name: " << oldName << ".\n\n";
+		cout << "Destination: " << currentRecord.getDestination() << "; Time: " << currentRecord.getTime() << "; Name: " << currentRecord.getName() << ".\n\n";
 		cout << "Are you sure you want to delete this record? (Y/N): ";
 		cin >> deleteYesNo;
 
 		if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-		FreightRecords::recordOutcome deleteRecordOutcome = fr.deleteFreight(recordIndex, deleteYesNo);
+		FreightRecords::modifyRecordOutcome deleteRecordOutcome = fr.deleteFreight(recordIndex, deleteYesNo);
 
 		//handle delete record outcome
 		if (deleteRecordOutcome.status.compare("OK") == 0) {

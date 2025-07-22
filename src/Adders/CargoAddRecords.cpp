@@ -27,11 +27,11 @@ void CargoAddRecords::addRecord() {
 	if (userInput.compare("CANCEL") == 0) { cout << "\nEdit cargo is cancelled. Press enter to go back.\n"; return; }
 
 	//check if ID exists
-	id = userInput; int recordIndex = cr.getRecordIndex(id);
-	if (recordIndex != -1) {
-		//Existing cargo ID exists. Add quantity if original quantity from 1 to 9
+	CargoRecords::getRecordOutcome getRecordOutcome = cr.getCargoById(userInput);
 
-		Cargo currentRecord = cr.getCargo(recordIndex);
+	if (getRecordOutcome.status.compare("FOUND") == 0) {
+		//Existing cargo ID exists. Add quantity if original quantity from 1 to 9
+		Cargo currentRecord = getRecordOutcome.currentRecord; int recordIndex = getRecordOutcome.index;
 		int oldQuantity = currentRecord.getQuantity(); int addQuantity;
 
 		if (oldQuantity < 10) {
@@ -43,7 +43,7 @@ void CargoAddRecords::addRecord() {
 			cin >> addQuantity;
 			if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-			CargoRecords::recordOutcome appendCargoOutcome = cr.appendCargo(addQuantity, recordIndex, currentRecord);
+			CargoRecords::modifyRecordOutcome appendCargoOutcome = cr.appendCargo(addQuantity, recordIndex, currentRecord);
 
 			if (appendCargoOutcome.status.compare("CANCELLED") == 0) {
 				cout << "\nAppend cargo cancelled. Press enter to go back.\n";
@@ -60,7 +60,7 @@ void CargoAddRecords::addRecord() {
 			cout << "Error: ID \"" << id << "\" has already maximum 10 cargo. Press enter to go back.\n"; return;
 		}
 	}
-	else {
+	else if (getRecordOutcome.status.compare("NOT_FOUND") == 0) {
 		//cargo ID doesn't exist, ask for details
 		cout << "Enter the destination, time and quantity, separated with a comma in between.\n";
 		cout << "To go back, type \"CANCEL\".\n\n-> ";
@@ -68,14 +68,14 @@ void CargoAddRecords::addRecord() {
 		getline(cin, userInput);
 		userInput = id + "," + userInput; //add in ID attribute to the user input
 
-		CargoRecords::recordOutcome addRecordOutcome = cr.addCargo(userInput);
+		CargoRecords::modifyRecordOutcome addmodifyRecordOutcome = cr.addCargo(userInput);
 
 		//handle add record outcome
-		if (addRecordOutcome.status.compare("OK") == 0) {
+		if (addmodifyRecordOutcome.status.compare("OK") == 0) {
 			cout << "\nSuccess, record is added! Press enter to go back\n"; //Cargo add success
 		}
-		else if (addRecordOutcome.status.compare("ERROR") == 0) {
-			cout << "\n" << addRecordOutcome.message << "\nPress enter to go back\n"; //Cargo add failure, print error message
+		else if (addmodifyRecordOutcome.status.compare("ERROR") == 0) {
+			cout << "\n" << addmodifyRecordOutcome.message << "\nPress enter to go back\n"; //Cargo add failure, print error message
 		}
 	}
 }
@@ -118,16 +118,16 @@ void CargoAddRecords::addRecordsFromFile() {
 			}
 			else {
 				//add record from file line
-				CargoRecords::recordOutcome addRecordOutcome = cr.addCargo(fileLine);
+				CargoRecords::modifyRecordOutcome addmodifyRecordOutcome = cr.addCargo(fileLine);
 
 				//handle add record outcome
-				if (addRecordOutcome.status.compare("OK") == 0) {
+				if (addmodifyRecordOutcome.status.compare("OK") == 0) {
 					//Cargo add success
 					cout << "Line " << (lineNumber + 1) << ": Success; record is added!\n";
 				}
-				else if (addRecordOutcome.status.compare("ERROR") == 0) {
+				else if (addmodifyRecordOutcome.status.compare("ERROR") == 0) {
 					//Cargo add failure, print error message
-					cout << "Line " << (lineNumber + 1) << ": " << addRecordOutcome.message << "\n";
+					cout << "Line " << (lineNumber + 1) << ": " << addmodifyRecordOutcome.message << "\n";
 				}
 				lineNumber++;
 			}

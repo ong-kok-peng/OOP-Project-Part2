@@ -34,7 +34,7 @@ void CargoExportData::exportRecords() {
 
     writer.writeLine(header); //write header as line 1
     for (int i = 0; i < readCR.getRecordsSize(); ++i) {
-        Cargo c = readCR.getCargo(i);
+        Cargo c = readCR.getCargoByIndex(i);
         string line = c.getId() + "," + c.getDestination() + "," + c.getTime() + "," + to_string(c.getQuantity()) + "\n";
         writer.writeLine(line);
     }

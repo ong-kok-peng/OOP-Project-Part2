@@ -23,7 +23,7 @@ void FreightAddRecords::addRecord() {
 
 	if (userInput.compare("CANCEL") == 0) { cout << "\nAdd freight is cancelled. Press enter to go back.\n"; return; }
 
-	FreightRecords::recordOutcome addRecordOutcome = fr.addFreight(userInput);
+	FreightRecords::modifyRecordOutcome addRecordOutcome = fr.addFreight(userInput);
 
 	//handle add record outcome
 	if (addRecordOutcome.status.compare("OK") == 0) {
@@ -73,7 +73,7 @@ void FreightAddRecords::addRecordsFromFile() {
 				continue; 
 			}
 			else {
-				FreightRecords::recordOutcome addRecordOutcome = fr.addFreight(fileLine);
+				FreightRecords::modifyRecordOutcome addRecordOutcome = fr.addFreight(fileLine);
 
 				//handle add record outcome
 				if (addRecordOutcome.status.compare("OK") == 0) {
