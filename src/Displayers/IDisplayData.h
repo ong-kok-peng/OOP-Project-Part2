@@ -10,7 +10,7 @@ Date: 13/7/2025
 
 class IDisplayData {
 public:
-	virtual void displayRecords() = 0;
+	virtual void displayData() = 0;
 };
 
 #endif

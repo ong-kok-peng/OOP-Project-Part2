@@ -17,7 +17,8 @@ private:
 
 public:
     CargoDisplayData(IReadCargoRecords& readCR);
-    void displayRecords() override;
+    void displayData() override;
+    //void sortRecords(); //uncomment this if testing sort
 };
 
 #endif

@@ -11,7 +11,7 @@ using namespace std;
 
 FreightDisplayData::FreightDisplayData(IReadFreightRecords& readFR) : readFR{ readFR } {}
 
-void FreightDisplayData::displayRecords() {
+void FreightDisplayData::displayData() {
 	cout << "------ Displaying Freight Records ------\n\n";
 
 	if (readFR.getRecordsSize() == 0) {
@@ -20,7 +20,7 @@ void FreightDisplayData::displayRecords() {
 	}
     cout << "ID\tDestination\tTime\tFreight Name\n";
     for (int recordIndx = 0; recordIndx < readFR.getRecordsSize(); recordIndx++) {
-        Freight therecord = readFR.getFreight(recordIndx);
+        Freight therecord = readFR.getFreightByIndex(recordIndx);
 
         cout << therecord.getId() << "\t";
 
@@ -33,6 +33,24 @@ void FreightDisplayData::displayRecords() {
     }
     cout << "\n";
 }
+
+/*
+//uncomment this block if testing sort
+void FreightDisplayData::sortRecords() {
+    int sortChoice;
+
+    cout << "------ Sort Cargo Records ------\n\n";
+    cout << "1. By time\n2. By capacity\nYour choice: ";
+    cin >> sortChoice;
+
+    if (cin.fail()) { cout << "Invalid option, press enter to go back.\n"; return; }
+
+    if (sortChoice == 1) { readFR.sortFreightByTime(); }
+    if (sortChoice == 2) { readFR.sortFreightByCapacity(); }
+
+    cout << "Sorted! Press enter to go back.\n";
+}
+*/
 
 /* test main code
 #include "../Freight/FreightRecords.h"
