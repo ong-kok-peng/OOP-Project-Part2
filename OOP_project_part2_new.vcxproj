@@ -123,14 +123,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Data\Freight\Freight.h" />
-    <ClInclude Include="src\Data\Cargo\Cargo.h" />
+    <ClInclude Include="src\Builder Logic\DataModifier\FreightDataModifier.h" />
+    <ClInclude Include="src\Builder Logic\DataDisplayer\FreightDataDisplayer.h" />
+    <ClInclude Include="src\Builder Logic\DataAdder\FreightDataAdder.h" />
+    <ClInclude Include="src\Builder Logic\DataAdder\DataAdder.h" />
+    <ClInclude Include="src\Builder Logic\DataDisplayer\DataDisplayer.h" />
+    <ClInclude Include="src\Builder Logic\DataModifier\DataModifier.h" />
+    <ClInclude Include="src\Data\Cargo\CargoDataPool.h" />
+    <ClInclude Include="src\Data\Freight\FreightDataPool.h" />
+    <ClInclude Include="src\Data\Freight\FreightData.h" />
+    <ClInclude Include="src\Data\Cargo\CargoData.h" />
     <ClInclude Include="src\Data\TransportEntity.h" />
+    <ClInclude Include="src\File Manager\FileReader.h" />
+    <ClInclude Include="src\File Manager\FileWriter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Data\Freight\Freight.cpp" />
-    <ClCompile Include="src\Data\Cargo\Cargo.cpp" />
+    <ClCompile Include="src\Builder Logic\DataModifier\FreightDataModifier.cpp" />
+    <ClCompile Include="src\Builder Logic\DataDisplayer\FreightDataDisplayer.cpp" />
+    <ClCompile Include="src\Builder Logic\DataAdder\FreightDataAdder.cpp" />
+    <ClCompile Include="src\Data\Cargo\CargoDataPool.cpp" />
+    <ClCompile Include="src\Data\Freight\FreightDataPool.cpp" />
+    <ClCompile Include="src\Data\Freight\FreightData.cpp" />
+    <ClCompile Include="src\Data\Cargo\CargoData.cpp" />
     <ClCompile Include="src\Data\TransportEntity.cpp" />
+    <ClCompile Include="src\File Manager\FileReader.cpp" />
+    <ClCompile Include="src\File Manager\FileWriter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
