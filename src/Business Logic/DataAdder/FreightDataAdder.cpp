@@ -9,7 +9,6 @@ Date: 13/7/2025
 using namespace std;
 
 #include "FreightDataAdder.h"
-#include "../../File Manager/FileReader.h"
 
 FreightDataAdder::FreightDataAdder(FreightDataPool& fp) : fp { fp } {}
 
@@ -19,7 +18,7 @@ DataAdder::addOutcome FreightDataAdder::addData(string input) {
 	//parse user input
 	string id, destination, time, name;
 
-	if (input == "CANCELLED") { ao.status = "CANCELLED"; ao.message = "Adding data is cancelled."; return ao; }
+	if (input == "CANCEL") { ao.status = "CANCELLED"; ao.message = "Adding data is cancelled."; return ao; }
 
 	if (input.empty()) { ao.status = "ERROR"; ao.message = "User input is blank."; return ao; } //blank input
 
@@ -103,7 +102,7 @@ DataAdder::addOutcome FreightDataAdder::importFromFile(string input) {
 			fileLine = readFile.readLine(); //read the next line 
 		}
 
-		io.message += "Successfully added " + to_string(dataAddedCount) + " data(s)!\n";
+		io.message += "Successfully added " + to_string(dataAddedCount) + " data(s)!";
 	}
 	return io;
 }

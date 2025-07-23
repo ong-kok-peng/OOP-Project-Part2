@@ -9,7 +9,6 @@ Date: 13/7/2025
 using namespace std;
 
 #include "FreightDataModifier.h"
-#include "../../File Manager/FileReader.h"
 
 FreightDataModifier::FreightDataModifier(FreightDataPool& fp) : fp{ fp } {}
 
@@ -20,7 +19,7 @@ DataModifier::modifyOutcome FreightDataModifier::editData(int index, string inpu
 	string id, oldDestination, oldTime, oldName;
 	string newDestination, newTime, newName;
 
-	if (input == "CANCELLED") { mo.status = "CANCELLED"; mo.message = "Editing data is cancelled."; return mo; }
+	if (input == "CANCEL") { mo.status = "CANCELLED"; mo.message = "Editing data is cancelled."; return mo; }
 
 	if (input.empty()) { mo.status = "ERROR"; mo.message = "User input is blank."; return mo; } //blank input
 
@@ -57,7 +56,7 @@ DataModifier::modifyOutcome FreightDataModifier::editData(int index, string inpu
 
 			if (!isDataModified) {
 				//parameters from input are empty, hence record not edited
-				mo.status = "RECORD_UNCHANGED"; return mo;
+				mo.status = "RECORD_UNCHANGED"; mo.message = "Record is not edited at all"; return mo;
 			}
 			else {
 				//if record is modified, create a new freight with updated and old values if unchanged
@@ -80,14 +79,14 @@ DataModifier::modifyOutcome FreightDataModifier::deleteData(int index, char yesN
 
 	//retreive existing freight from the index; in case index is invalid, return status DATA_DOESNT_EXIST
 	FreightData* _getF = fp.getFreightByIndex(index);
-	if (_getF == nullptr) { mo.status = "DATA_DOESNT_EXIST"; return mo; }
+	if (_getF == nullptr) { mo.status = "DATA_DOESNT_EXIST"; mo.message = "Index returns no data."; return mo; }
 
 	if (yesNo == 'N' || yesNo == 'n') {
-		mo.status = "CANCELLED"; return mo; //delete cancelled
+		mo.status = "CANCELLED"; mo.message = "Deletion is cancelled."; return mo; //delete cancelled
 	}
 	else if (yesNo == 'Y' || yesNo == 'y') {
 		fp.deleteFreight(index); //delete confirmed
-		mo.status = "OK"; return mo;
+		mo.status = "OK"; mo.message = "Deletion is successful!"; return mo;
 	}
 	else {
 		mo.status = "ERROR"; mo.message = "invalid user input. Please select yes or no."; return mo;

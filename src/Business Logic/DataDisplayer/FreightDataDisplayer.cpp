@@ -15,6 +15,8 @@ FreightDataDisplayer::FreightDataDisplayer(FreightDataPool& fp) : fp{ fp } {}
 DataDisplayer::searchOutcome FreightDataDisplayer::searchData(string input) {
 	searchOutcome so;
 
+	if (input == "CANCEL") { so.status = "CANCELLED"; return so; }
+
 	//check if ID exists; a non -1 index should be returned if ID already exists.
 	int index = fp.getFreightIndexById(input);
 	if (index != -1) {

@@ -10,6 +10,7 @@ Date: 13/7/2025
 
 #include "DataAdder.h"
 #include "../../Data/Freight/FreightDataPool.h"
+#include "../../File Manager/FileReader.h"
 
 class FreightDataAdder : public DataAdder {
 private:
