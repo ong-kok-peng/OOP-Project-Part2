@@ -28,4 +28,19 @@ string TxtFormatStrategy::createFileLine_Freight(DataDisplayer::dataValues& dv) 
 	return line;
 }
 
-//expand for cargo
+string TxtFormatStrategy::createFileHeader_Cargo() {
+	return "ID\tDestination\tTime\tCargo Quantity\n";
+}
+
+string TxtFormatStrategy::createFileLine_Cargo(DataDisplayer::dataValues& dv) {
+	string line = "";
+
+	line += dv.id + "\t"; //write ID
+
+	if (dv.destination.length() <= 7) { line += dv.destination + "\t\t"; } //write destination; if too short put 2 tab characters
+	else { line += dv.destination + "\t"; }
+
+	line += dv.time + "\t"; line += dv.extraVal1 + "\n"; //write time and quantity, where quantity is under extra value 1
+
+	return line;
+}

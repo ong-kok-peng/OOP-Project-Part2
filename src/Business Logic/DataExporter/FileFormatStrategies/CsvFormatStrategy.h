@@ -13,8 +13,11 @@ Date: 23/7/2025
 class CsvFormatStrategy : public FileFormatStrategies {
 public:
 	string createFileExtension() override;
+
 	string createFileHeader_Freight() override;
 	string createFileLine_Freight(DataDisplayer::dataValues& dv) override;
+	string createFileHeader_Cargo() override;
+	string createFileLine_Cargo(DataDisplayer::dataValues& dv) override;
 };
 
 #endif

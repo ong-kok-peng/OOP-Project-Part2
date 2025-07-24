@@ -17,8 +17,8 @@ public:
 
 	virtual std::string createFileHeader_Freight() = 0;
 	virtual std::string createFileLine_Freight(DataDisplayer::dataValues& dv) = 0;
-	//virtual std::string createFileHeader_Cargo() = 0;
-	//virtual std::string createFileLine_Cargo(DataDisplayer::dataValues& dv) = 0;
+	virtual std::string createFileHeader_Cargo() = 0;
+	virtual std::string createFileLine_Cargo(DataDisplayer::dataValues& dv) = 0;
 };
 
 #endif

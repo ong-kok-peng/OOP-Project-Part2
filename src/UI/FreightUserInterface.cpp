@@ -42,7 +42,6 @@ void FreightUserInterface::showMenu() {
         cout << "4. Delete Freight record.\n";
         cout << "5. Edit Freight record.\n";
         cout << "6. Save Freight records to a new file\n";
-        cout << "7. Sort Freight records\n"; //uncomment for testing sort
         cout << "0. Go back.\n";
         cout << "Option: ";
 
@@ -60,38 +59,24 @@ void FreightUserInterface::showMenu() {
         case 0:
             return;
             break;
-        case 1: {
-            //load freighter/cargoItem data from text file
-            clearScreen(); importFilePrompt(); waitForKey();
+        case 1:
+            clearScreen(); importFilePrompt(); waitForKey(); //import freight data
             break;
-        }
         case 2:
-            //display freighter/cargoItem data 
-            clearScreen(); displayFreight(); waitForKey();
+            clearScreen(); displayFreight(); waitForKey(); //display freight data
             break;
         case 3:
-            //add freighter/cargoItem data 
-            clearScreen(); addFreightPrompt(); waitForKey();
+            clearScreen(); addFreightPrompt(); waitForKey(); //add freight data
             break;
         case 4:
-            //delete freighter/cargoItem data 
-            clearScreen(); deleteFreightPrompt(); waitForKey();
+            clearScreen(); deleteFreightPrompt(); waitForKey(); //delete freight data
             break;
         case 5:
-            //edit freighter/cargoItem data 
-            clearScreen(); editFreightPrompt(); waitForKey();
+            clearScreen(); editFreightPrompt(); waitForKey(); //edit freight data
             break;
         case 6:
-            //export freighter/cargoItem data to a new file
-            clearScreen(); exportFilePrompt(); waitForKey();
+            clearScreen(); exportFilePrompt(); waitForKey(); //export freight data
             break;
-            /*
-            case 7:
-                //sort data; uncomment this if testing sort
-                clearScreen();
-                if (mainMenuSelection == 1) { displayFR.sortRecords(); }
-                else if (mainMenuSelection == 2) { displayCR.sortRecords(); } //displayCR.sortRecords();
-            */
         default:
             cout << "\nInvalid option, please type any number from 1 to 6.\n";
             waitForKey();
@@ -112,7 +97,7 @@ void FreightUserInterface::addFreightPrompt() {
 }
 
 void FreightUserInterface::importFilePrompt() {
-    cout << "\n------------ Add Freight Records from File ------------\n\n";
+    cout << "------------ Import Freight Records from File ------------\n\n";
     cout << "Input file path to the Freight data file:\n";
     cout << "If you have previously loaded records, they will be replaced.\nTo go back, type \"CANCEL\".\n\n-> ";
     string userInput;
@@ -124,7 +109,7 @@ void FreightUserInterface::importFilePrompt() {
 }
 
 void FreightUserInterface::exportFilePrompt() {
-    cout << "\n------------ Exporting Freight Records to File ------------\n\n";
+    cout << "------------ Exporting Freight Records to File ------------\n\n";
     FreightDataDisplayer::dataValues isThereData = displayFP->getDataValues(0);
     if (isThereData.status == "NO_DATA") {
         cout << "There are no records. Add a new record or import from a file.\n";
@@ -134,10 +119,7 @@ void FreightUserInterface::exportFilePrompt() {
     //prompt for the file extension to export file
     cout << "Select a file extension to export:\n";
     cout << "0) Cancel  1) .txt  2) .csv\n\n-> ";
-    int fileformatChoice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush any leftover newline before the user input
-    cin >> fileformatChoice;
-
+    int fileformatChoice; cin >> fileformatChoice;
     if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
     //set the selected file extension
@@ -243,9 +225,11 @@ void FreightUserInterface::displayFreight() {
     cout << "\nAll freight data is displayed! ";
 }
 
+/* test main code
 int main() {
 	FreightUserInterface fInterface;
     fInterface.showMenu();
 
 	return 0;
 }
+*/

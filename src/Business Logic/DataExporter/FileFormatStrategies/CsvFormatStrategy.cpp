@@ -20,4 +20,11 @@ string CsvFormatStrategy::createFileLine_Freight(DataDisplayer::dataValues& dv) 
 	return line;
 }
 
-//expand for cargo
+string CsvFormatStrategy::createFileHeader_Cargo() {
+	return "ID,Destination,Time,Cargo Quantity\n";
+}
+
+string CsvFormatStrategy::createFileLine_Cargo(DataDisplayer::dataValues& dv) {
+	string line = dv.id + "," + dv.destination + "," + dv.time + "," + dv.extraVal1 + "\n"; //quantity is under extra value 1
+	return line;
+}
