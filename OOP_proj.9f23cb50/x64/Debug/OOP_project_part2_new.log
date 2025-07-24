@@ -1,2 +1,25 @@
-﻿  Freight.cpp
-  OOP_project_part2_new.vcxproj -> C:\Users\temp\Documents\OOP_project_part2\OOP_project_part2_new\x64\Debug\OOP_project_part2_new.exe
+﻿  MainProgram.cpp
+  CargoUserInterface.cpp
+  CargoDataExporter.cpp
+  CargoDataDisplayer.cpp
+  CargoDataModifier.cpp
+  CargoDataAdder.cpp
+  CsvFormatStrategy.cpp
+  FreightDataExporter.cpp
+  FreightDataModifier.cpp
+  FreightDataDisplayer.cpp
+  FreightDataAdder.cpp
+  CargoDataPool.cpp
+C:\Users\temp\Documents\OOP_project_part2\OneMoreTime_OOP-Project-Part2\src\Data\Cargo\CargoDataPool.cpp(37,13): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  FreightDataPool.cpp
+C:\Users\temp\Documents\OOP_project_part2\OneMoreTime_OOP-Project-Part2\src\Data\Freight\FreightDataPool.cpp(37,13): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  FreightData.cpp
+  CargoData.cpp
+C:\Users\temp\Documents\OOP_project_part2\OneMoreTime_OOP-Project-Part2\src\Data\Cargo\CargoData.cpp(40,27): warning C4101: 'e': unreferenced local variable
+  TransportEntity.cpp
+  FileReader.cpp
+  FileWriter.cpp
+  TxtFormatStrategy.cpp
+  FreightUserInterface.cpp
+  Generating Code...
+  OOP_project_part2_new.vcxproj -> C:\Users\temp\Documents\OOP_project_part2\OneMoreTime_OOP-Project-Part2\x64\Debug\OOP_project_part2_new.exe

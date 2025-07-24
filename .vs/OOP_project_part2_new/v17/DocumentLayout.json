@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\MainProgram.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|solutionrelative:MainProgram.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightData.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|solutionrelative:src\\Data\\Freight\\FreightData.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightDataPool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9F23CB50-EDE3-4036-9F7C-721864CAF0FE}|OOP_project_part2_new.vcxproj|solutionrelative:src\\Data\\Freight\\FreightDataPool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 362,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainProgram.cpp",
+              "DocumentMoniker": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\MainProgram.cpp",
+              "RelativeDocumentMoniker": "MainProgram.cpp",
+              "ToolTip": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\MainProgram.cpp",
+              "RelativeToolTip": "MainProgram.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-24T05:55:25.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FreightDataPool.cpp",
+              "DocumentMoniker": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightDataPool.cpp",
+              "RelativeDocumentMoniker": "src\\Data\\Freight\\FreightDataPool.cpp",
+              "ToolTip": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightDataPool.cpp",
+              "RelativeToolTip": "src\\Data\\Freight\\FreightDataPool.cpp",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-23T03:36:23.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FreightData.cpp",
+              "DocumentMoniker": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightData.cpp",
+              "RelativeDocumentMoniker": "src\\Data\\Freight\\FreightData.cpp",
+              "ToolTip": "C:\\Users\\temp\\Documents\\OOP_project_part2\\OneMoreTime_OOP-Project-Part2\\src\\Data\\Freight\\FreightData.cpp",
+              "RelativeToolTip": "src\\Data\\Freight\\FreightData.cpp",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-22T19:25:38.369Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 152,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
