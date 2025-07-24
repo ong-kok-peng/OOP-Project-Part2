@@ -5,8 +5,8 @@ Date: 13/7/2025
 
 #pragma once
 
-#ifndef FreightData_H
-#define FreightData_H
+#ifndef FREIGHTDATA_H
+#define FREIGHTDATA_H
 
 #include "../TransportEntity.h"
 

@@ -3,6 +3,11 @@ Created by: Chia Boon Pin (2403120)
 Date: 17/7/2025
 */
 
+#pragma once
+
+#ifndef FILEREADER_H
+#define FILEREADER_H
+
 #include <fstream>
 
 class FileReader
@@ -25,3 +30,5 @@ public:
 
     std::string readLine();
 };
+
+#endif

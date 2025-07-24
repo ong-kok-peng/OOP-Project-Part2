@@ -3,6 +3,11 @@ Created by: Chia Boon Pin (2403120)
 Date: 17/7/2025
 */
 
+#pragma once
+
+#ifndef FILEWRITER_H
+#define FILEWRITER_H
+
 #include <fstream>
 
 class FileWriter
@@ -27,3 +32,5 @@ public:
 
     void closeFile();
 };
+
+#endif
