@@ -40,14 +40,14 @@ DataExporter::exportOutcome FreightDataExporter::exportToFile(string input) {
 	eo.status = "SUCCESS";
 	eo.message += "Exporting freight data to file \"" + filename + "\"...\n";
 
-	string header = fileFormatStrategy->createFileHeader_Freight(); //create file header based on file format
+	string header = fileFormatStrategy->createFileHeader({ "ID", "Destination", "Time", "Freight Name" }); //create file header based on file format
 	writer.writeLine(header); //write header as line 1
 
 	//write line by line to the file
 	int index = 0; DataDisplayer::dataValues dv = displayFR.getDataValues(index);
 
 	while (dv.status != "NO_DATA") {
-		writer.writeLine(fileFormatStrategy->createFileLine_Freight(dv)); //write lines based on file format
+		writer.writeLine(fileFormatStrategy->createFileLine(dv)); //write lines based on file format
 		dv = displayFR.getDataValues(++index); //increment index and then get the next data value
 	}
 

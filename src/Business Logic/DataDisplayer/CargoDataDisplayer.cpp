@@ -17,10 +17,10 @@ DataDisplayer::searchOutcome CargoDataDisplayer::searchData(string input) {
 
 	if (input == "CANCEL") { so.status = "CANCELLED"; return so; }
 
-	//check if ID exists; a non -1 index should be returned if ID already exists.
-	int index = cp.getCargoIndexById(input);
-	if (index != -1) {
-		so.status = "DATA_FOUND"; so.index = index;
+	//populate cargo data indexs if value matches any attribute inside the data pool
+	vector<int> indexs = cp.getCargoIndexsByValue(input);
+	if (!indexs.empty()) {
+		so.status = "DATA_FOUND"; so.indexs.insert(so.indexs.end(), indexs.begin(), indexs.end());
 	}
 	else {
 		so.status = "DATA_NOT_FOUND";
@@ -57,12 +57,20 @@ int main() {
 	cout << ao2.status << "; " << ao2.message << endl;
 	DataAdder::addOutcome ao3 = addCR.addData("C88, Pyong Yang, 0905, 1");
 	cout << ao3.status << "; " << ao3.message << endl;
+	DataAdder::addOutcome ao4 = addCR.addData("C99, Tokyo, 1755, 6");
+	cout << ao4.status << "; " << ao4.message << endl;
 
 	//search data
-	DataDisplayer::searchOutcome so1 = displayCR.searchData("C88");
-	int searchindex = so1.index;
+	DataDisplayer::searchOutcome so1 = displayCR.searchData("Tokyo");
+	vector<int> searchIndexs1 = so1.indexs;
 
-	if (so1.status == "DATA_FOUND") { cout << "Search found, at index " << searchindex << ".\n"; }
+	if (so1.status == "DATA_FOUND") { 
+		cout << "Search found, at index(s) ";
+		for (auto& index : searchIndexs1) {
+			cout << index << ",";
+		}
+		cout << "\n"; 
+	}
 	else if (so1.status == "DATA_NOT_FOUND") { cout << "Search not found.\n"; }
 
 	//display data

@@ -27,9 +27,9 @@ DataAdder::addOutcome CargoDataAdder::addData(string input) {
 		ao.status = "ERROR"; ao.message = "Cargo ID/destination/time/quantity is/are missing."; return ao;
 	}
 	else {
-		//check if ID exists; a non -1 index should be returned if ID already exists.
-		if (cp.getCargoIndexById(id) != -1) {
-			//ID already exists.
+		//check if ID exists; a non empty indexes vector should be returned if ID already exists.
+		if (!cp.getCargoIndexsByValue(id).empty()) {
+			//indexes are found with the entered ID, hence ID already exists.
 			ao.status = "ERROR"; ao.message = "ID already exists."; return ao;
 		}
 		else {

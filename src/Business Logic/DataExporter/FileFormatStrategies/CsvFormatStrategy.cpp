@@ -11,20 +11,21 @@ using namespace std;
 
 string CsvFormatStrategy::createFileExtension() { return ".csv"; }
 
-string CsvFormatStrategy::createFileHeader_Freight() {
-	return "ID,Destination,Time,Freight Name\n";
-}
-
-string CsvFormatStrategy::createFileLine_Freight(DataDisplayer::dataValues& dv) {
-	string line = dv.id + "," + dv.destination + "," + dv.time + "," + dv.extraVal1 + "\n"; //name is under extra value 1
+string CsvFormatStrategy::createFileHeader(vector<string> headerValues) {
+	string line = "";
+	for (int i = 0; i < headerValues.size(); i++) {
+		//print a comma delimeter until the last header value
+		if (i != headerValues.size() - 1) {
+			line += headerValues[i] + ",";
+		}
+		else {
+			line += headerValues[i] + "\n";
+		}
+	}
 	return line;
 }
 
-string CsvFormatStrategy::createFileHeader_Cargo() {
-	return "ID,Destination,Time,Cargo Quantity\n";
-}
-
-string CsvFormatStrategy::createFileLine_Cargo(DataDisplayer::dataValues& dv) {
-	string line = dv.id + "," + dv.destination + "," + dv.time + "," + dv.extraVal1 + "\n"; //quantity is under extra value 1
+string CsvFormatStrategy::createFileLine(DataDisplayer::dataValues& dv) {
+	string line = dv.id + "," + dv.destination + "," + dv.time + "," + dv.extraVal1 + "\n"; //name is under extra value 1
 	return line;
 }

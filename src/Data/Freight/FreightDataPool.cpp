@@ -28,16 +28,22 @@ void FreightDataPool::deleteFreight(int index) {
 	freights.erase(freights.begin() + index);
 }
 
-int FreightDataPool::getFreightIndexById(string id) {
-	auto iterator = find_if(freights.begin(), freights.end(), [id](FreightData& f) {
-		return (id == f.getId());
+vector<int> FreightDataPool::getFreightIndexsByValue(string value) {
+	vector<int> indexs = {};
+
+	auto iterator = freights.begin();
+	iterator = find_if(iterator, freights.end(), [value](FreightData& f) {
+		return ( value == f.getId() || value == f.getDestination() || value == f.getTime() || value == f.getName() );
 		});
 
-	if (iterator != freights.end()) {
-		int index = distance(freights.begin(), iterator);
-		return index;
+	while (iterator != freights.end()) {
+		indexs.push_back(distance(freights.begin(), iterator));
+		iterator = find_if(++iterator, freights.end(), [value](FreightData& f) {
+			return ( value == f.getId() || value == f.getDestination() || value == f.getTime() || value == f.getName() );
+			});
 	}
-	else { return -1; }
+
+	return indexs;
 }
 
 FreightData* FreightDataPool::getFreightByIndex(int index) {

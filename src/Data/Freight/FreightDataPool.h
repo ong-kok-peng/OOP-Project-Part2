@@ -20,7 +20,7 @@ public:
 	void addFreight(FreightData f);
 	void editFreight(int index, FreightData f);
 	void deleteFreight(int index);
-	int getFreightIndexById(string id);
+	vector<int> getFreightIndexsByValue(string value);
 	FreightData* getFreightByIndex(int index);
 	void clearAllFreight();
 	void sortByTime();

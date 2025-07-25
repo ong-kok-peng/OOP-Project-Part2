@@ -29,9 +29,9 @@ DataAdder::addOutcome FreightDataAdder::addData(string input) {
 		ao.status = "ERROR"; ao.message = "freight ID/destination/time/name is/are missing."; return ao;
 	}
 	else {
-		//check if ID exists; a non -1 index should be returned if ID already exists.
-		if (fp.getFreightIndexById(id) != -1) {
-			//ID already exists.
+		//check if ID exists; a non empty indexes vector should be returned if ID already exists.
+		if (!fp.getFreightIndexsByValue(id).empty()) {
+			//indexes are found with the entered ID, hence ID already exists.
 			ao.status = "ERROR"; ao.message = "ID already exists."; return ao;
 		}
 		else {
@@ -120,7 +120,6 @@ int main() {
 	DataAdder::addOutcome ao3 = addFR.addData("F88, Pyong Yang, 0905, cargoCruISER");
 	cout << ao3.status << "; " << ao3.message << endl;
 	
-
 	//import from file
 	DataAdder::addOutcome io =  addFR.importFromFile("cargo and freight data files\\freightdata.csv");
 	cout << "File import: " << io.status << "\n" << io.message << endl;

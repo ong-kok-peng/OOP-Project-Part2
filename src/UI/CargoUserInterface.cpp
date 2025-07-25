@@ -110,10 +110,10 @@ void CargoUserInterface::addCargoPrompt() {
         CargoDataAdder::addOutcome addO = addCP->addData(id + ", " + userInput);
         cout << "\n" << addO.message << " Press enter to go back.\n";
     }
-    else if (searchO.status == "DATA_FOUND") {
+    else if (searchO.status == "DATA_FOUND" && searchO.indexs.size() == 1) {
         //ID already exists, if quantity is 1 to 9, prompt user to append if desired
         //also, show user the current record details
-        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.index);
+        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.indexs[0]);
         int oldQuantity = stoi(dv.extraVal1); //dont need try catch because the quantity is confirmed a number due to validation
 
         if (oldQuantity < 10) {
@@ -131,7 +131,7 @@ void CargoUserInterface::addCargoPrompt() {
             else {
                 //if additional quantity is acceptable, edit that particular data with only quantity changed.
                 string editInput = ", , " + to_string(updatedQuantity);
-                DataModifier::modifyOutcome editO = modifyCP->editData(searchO.index, editInput);
+                DataModifier::modifyOutcome editO = modifyCP->editData(searchO.indexs[0], editInput);
                 cout << "\n" << editO.message << " Press enter to go back.\n";
             }
         }
@@ -201,17 +201,17 @@ void CargoUserInterface::editCargoPrompt() {
     if (searchO.status == "CANCELLED") { cout << "\nEdit Cargo is cancelled. Press enter to go back.\n"; }
     else if (searchO.status == "DATA_NOT_FOUND") { cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; }
 
-    else if (searchO.status == "DATA_FOUND") {
+    else if (searchO.status == "DATA_FOUND" && searchO.indexs.size() == 1) {
         //show user the current record details, and prompt user to type new values for the Cargo record. 
         //if any attribute is unchanged, put a blank
-        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.index);
+        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.indexs[0]);
         cout << "\nThe original record is:\n";
         cout << "Destination: " << dv.destination << "; Time: " << dv.time << "; Quantity: " << dv.extraVal1 << ".\n\n";
         cout << "Enter the new destination, time and quantity, separated with a comma in between.\n";
         cout << "Leave the value blank if there are no changes. To go back, type \"CANCEL\".\n\n-> ";
         getline(cin, userInput);
 
-        DataModifier::modifyOutcome editO = modifyCP->editData(searchO.index, userInput);
+        DataModifier::modifyOutcome editO = modifyCP->editData(searchO.indexs[0], userInput);
         cout << "\n" << editO.message << " Press enter to go back.\n";
     }
 }
@@ -229,10 +229,10 @@ void CargoUserInterface::deleteCargoPrompt() {
     if (searchO.status == "CANCELLED") { cout << "\nDelete Cargo is cancelled. Press enter to go back.\n"; }
     else if (searchO.status == "DATA_NOT_FOUND") { cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; }
 
-    else if (searchO.status == "DATA_FOUND") {
+    else if (searchO.status == "DATA_FOUND" && searchO.indexs.size() == 1) {
         //ID exists, show user the current record details 
         //if quantity is more than 1, prompt user to remove if desired
-        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.index);
+        DataDisplayer::dataValues dv = displayCP->getDataValues(searchO.indexs[0]);
         int oldQuantity = stoi(dv.extraVal1); //dont need try catch because the quantity is confirmed a number due to validation
 
         cout << "\nThe record values for the ID are:\n";
@@ -252,7 +252,7 @@ void CargoUserInterface::deleteCargoPrompt() {
             else {
                 //if additional quantity is acceptable, edit that particular data with only quantity changed.
                 string editInput = ", , " + to_string(updatedQuantity);
-                DataModifier::modifyOutcome editO = modifyCP->editData(searchO.index, editInput);
+                DataModifier::modifyOutcome editO = modifyCP->editData(searchO.indexs[0], editInput);
                 cout << "\n" << editO.message << " Press enter to go back.\n";
             }
         }
@@ -263,7 +263,7 @@ void CargoUserInterface::deleteCargoPrompt() {
 
             if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-            DataModifier::modifyOutcome deleteO = modifyCP->deleteData(searchO.index, deleteYesNo);
+            DataModifier::modifyOutcome deleteO = modifyCP->deleteData(searchO.indexs[0], deleteYesNo);
             cout << "\n" << deleteO.message << " Press enter to go back.\n";
         }
     }

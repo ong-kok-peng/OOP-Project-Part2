@@ -156,17 +156,17 @@ void FreightUserInterface::editFreightPrompt() {
     if (searchO.status == "CANCELLED") { cout << "\nEdit freight is cancelled. Press enter to go back.\n"; }
     else if (searchO.status == "DATA_NOT_FOUND") { cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; }
     
-    else if (searchO.status == "DATA_FOUND") {
+    else if (searchO.status == "DATA_FOUND" && searchO.indexs.size() == 1) {
         //show user the current record details, and prompt user to type new values for the freight record. 
         //if any attribute is unchanged, put a blank
-        DataDisplayer::dataValues dv = displayFP->getDataValues(searchO.index);
+        DataDisplayer::dataValues dv = displayFP->getDataValues(searchO.indexs[0]);
         cout << "\nThe original record is:\n";
         cout << "Destination: " << dv.destination << "; Time: " << dv.time << "; Name: " << dv.extraVal1 << ".\n\n";
         cout << "Enter the new destination, time and name, separated with a comma in between.\n";
         cout << "Leave the value blank if there are no changes. To go back, type \"CANCEL\".\n\n-> ";
         getline(cin, userInput);
 
-        DataModifier::modifyOutcome editO = modifyFP->editData(searchO.index, userInput);
+        DataModifier::modifyOutcome editO = modifyFP->editData(searchO.indexs[0], userInput);
         cout << "\n" << editO.message << " Press enter to go back.\n";
     }
 }
@@ -184,9 +184,9 @@ void FreightUserInterface::deleteFreightPrompt() {
     if (searchO.status == "CANCELLED") { cout << "\nDelete freight is cancelled. Press enter to go back.\n"; }
     else if (searchO.status == "DATA_NOT_FOUND") { cout << "Error: Empty input or the ID \"" << userInput << "\" does not exist. Press enter to go back.\n"; }
 
-    else if (searchO.status == "DATA_FOUND") {
+    else if (searchO.status == "DATA_FOUND" && searchO.indexs.size() == 1) {
         // show user the current record details and prompt user to confirm the delete
-        DataDisplayer::dataValues dv = displayFP->getDataValues(searchO.index);
+        DataDisplayer::dataValues dv = displayFP->getDataValues(searchO.indexs[0]);
         cout << "\nThe original record is:\n";
         cout << "Destination: " << dv.destination << "; Time: " << dv.time << "; Name: " << dv.extraVal1 << ".\n\n";
         cout << "Are you sure you want to delete this record? (Y/N): ";
@@ -194,7 +194,7 @@ void FreightUserInterface::deleteFreightPrompt() {
 
         if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
-        DataModifier::modifyOutcome deleteO = modifyFP->deleteData(searchO.index, deleteYesNo);
+        DataModifier::modifyOutcome deleteO = modifyFP->deleteData(searchO.indexs[0], deleteYesNo);
         cout << "\n" << deleteO.message << " Press enter to go back.\n";
     }
 }

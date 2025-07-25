@@ -6,13 +6,14 @@ Date: 13/7/2025
 #pragma once
 
 #include <string>
+#include <vector>
 
 #ifndef DATA_DISPLAYER_H
 #define DATA_DISPLAYER_H
 
 class DataDisplayer {
 public:
-	struct searchOutcome { std::string status = ""; int index = -1; };
+	struct searchOutcome { std::string status = ""; std::vector<int> indexs = {}; };
 	struct dataValues { std::string status = ""; std::string id = "";  std::string destination = ""; std::string time = "";
 						std::string extraVal1 = ""; std::string extraVal2 = ""; };
 

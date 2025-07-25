@@ -11,11 +11,21 @@ using namespace std;
 
 string TxtFormatStrategy::createFileExtension() { return ".txt"; }
 
-string TxtFormatStrategy::createFileHeader_Freight() {
-	return "ID\tDestination\tTime\tFreight Name\n";
+string TxtFormatStrategy::createFileHeader(vector<string> headerValues) {
+	string line = "";
+	for (int i = 0; i < headerValues.size(); i++) {
+		//print a tab delimeter until the last header value
+		if (i != headerValues.size() - 1) {
+			line += headerValues[i] + "\t";
+		}
+		else {
+			line += headerValues[i] + "\n";
+		}
+	}
+	return line;
 }
 
-string TxtFormatStrategy::createFileLine_Freight(DataDisplayer::dataValues& dv) {
+string TxtFormatStrategy::createFileLine(DataDisplayer::dataValues& dv) {
 	string line = "";
 
 	line += dv.id + "\t"; //write ID
@@ -24,23 +34,6 @@ string TxtFormatStrategy::createFileLine_Freight(DataDisplayer::dataValues& dv) 
 	else { line += dv.destination + "\t"; }
 
 	line += dv.time + "\t"; line += dv.extraVal1 + "\n"; //write time and name, where name is under extra value 1
-
-	return line;
-}
-
-string TxtFormatStrategy::createFileHeader_Cargo() {
-	return "ID\tDestination\tTime\tCargo Quantity\n";
-}
-
-string TxtFormatStrategy::createFileLine_Cargo(DataDisplayer::dataValues& dv) {
-	string line = "";
-
-	line += dv.id + "\t"; //write ID
-
-	if (dv.destination.length() <= 7) { line += dv.destination + "\t\t"; } //write destination; if too short put 2 tab characters
-	else { line += dv.destination + "\t"; }
-
-	line += dv.time + "\t"; line += dv.extraVal1 + "\n"; //write time and quantity, where quantity is under extra value 1
 
 	return line;
 }

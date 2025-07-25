@@ -12,37 +12,43 @@ using namespace std;
 #include "CargoDataPool.h"
 
 CargoDataPool::CargoDataPool() {
-	freights = {};
+	cargos = {};
 }
 
 void CargoDataPool::addCargo(CargoData f) {
-	freights.push_back(f);
+	cargos.push_back(f);
 }
 
 void CargoDataPool::editCargo(int index, CargoData f) {
-	freights.erase(freights.begin() + index);
-	freights.insert(freights.begin() + index, f);
+	cargos.erase(cargos.begin() + index);
+	cargos.insert(cargos.begin() + index, f);
 }
 
 void CargoDataPool::deleteCargo(int index) {
-	freights.erase(freights.begin() + index);
+	cargos.erase(cargos.begin() + index);
 }
 
-int CargoDataPool::getCargoIndexById(string id) {
-	auto iterator = find_if(freights.begin(), freights.end(), [id](CargoData& f) {
-		return (id == f.getId());
+vector<int> CargoDataPool::getCargoIndexsByValue(string value) {
+	vector<int> indexs = {};
+
+	auto iterator = cargos.begin();
+	iterator = find_if(iterator, cargos.end(), [value](CargoData& c) {
+		return ( value == c.getId() || value == c.getDestination() || value == c.getTime() || value == to_string(c.getQuantity()) );
 		});
 
-	if (iterator != freights.end()) {
-		int index = distance(freights.begin(), iterator);
-		return index;
+	while (iterator != cargos.end()) {
+		indexs.push_back(distance(cargos.begin(), iterator));
+		iterator = find_if(++iterator, cargos.end(), [value](CargoData& c) {
+			return ( value == c.getId() || value == c.getDestination() || value == c.getTime() || value == to_string(c.getQuantity()) );
+			});
 	}
-	else { return -1; }
+
+	return indexs;
 }
 
 CargoData* CargoDataPool::getCargoByIndex(int index) {
-	if (index >= 0 && index < freights.size()) {
-		return &(freights[index]);
+	if (index >= 0 && index < cargos.size()) {
+		return &(cargos[index]);
 	}
 	else {
 		return nullptr;
@@ -50,12 +56,12 @@ CargoData* CargoDataPool::getCargoByIndex(int index) {
 }
 
 void CargoDataPool::clearAllCargo() {
-	freights.clear();
+	cargos.clear();
 }
 
 void CargoDataPool::sortByTime() {
 	//sort by ascending destination order, with ascending time order so as to priortize earliest freight
-	sort(freights.begin(), freights.end(), [](CargoData& prevCargo, CargoData& nextCargo) {
+	sort(cargos.begin(), cargos.end(), [](CargoData& prevCargo, CargoData& nextCargo) {
 		bool equalDestination = prevCargo.getDestination().compare(nextCargo.getDestination()) == 0;
 
 		return (prevCargo.getDestination() < nextCargo.getDestination()) ||
@@ -65,7 +71,7 @@ void CargoDataPool::sortByTime() {
 
 void CargoDataPool::sortByCapacity() {
 	//sort by ascending destination order, with descending capacity order so as to fill in as many cargo as possible.
-	sort(freights.begin(), freights.end(), [](CargoData& prevCargo, CargoData& nextCargo) {
+	sort(cargos.begin(), cargos.end(), [](CargoData& prevCargo, CargoData& nextCargo) {
 		bool equalDestination = prevCargo.getDestination().compare(nextCargo.getDestination()) == 0;
 
 		return (prevCargo.getDestination() < nextCargo.getDestination()) ||
@@ -92,18 +98,33 @@ int main() {
 	else { cout << "2. Validation error(s) in: " << vo2.message << endl; }
 
 	CargoData c3;
-	TransportEntity::validationOutcome vo3 = c3.setValues("C01", "Pyong Yang", "0905", "10");
+	TransportEntity::validationOutcome vo3 = c3.setValues("C55", "Pyong Yang", "0905", "4");
 	if (vo3.validationPass) {
 		c_dataPool.addCargo(c3); cout << "3. Added!\n";
 	}
 	else { cout << "3. Validation error(s) in: " << vo3.message << endl; }
 
+	CargoData c4;
+	TransportEntity::validationOutcome vo4 = c4.setValues("C86", "Tokyo", "1648", "5");
+	if (vo4.validationPass) {
+		c_dataPool.addCargo(c4); cout << "4. Added!\n";
+	}
+	else { cout << "3. Validation error(s) in: " << vo3.message << endl; }
+
+	
 	CargoData* _getC = c_dataPool.getCargoByIndex(0);
 	if (_getC == nullptr) { cout << "No cargo data at this index.\n"; }
 	else {
 		CargoData getC = *_getC;
 		cout << "ID is " << getC.getId() << "; quantity is " << getC.getQuantity();
 		cout << "; Destination is " << getC.getDestination() << "; time is " << getC.getTime() << endl;
+	}
+	
+
+	string toFind = "C55";
+	vector<int> foundIndexs = c_dataPool.getCargoIndexsByValue(toFind);
+	for (auto& index : foundIndexs) {
+		cout << toFind << " is found at index " << index << ".\n";
 	}
 
 	return 0;

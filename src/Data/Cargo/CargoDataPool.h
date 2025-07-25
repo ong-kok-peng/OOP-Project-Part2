@@ -13,14 +13,14 @@ Date: 17/7/2025
 
 class CargoDataPool  {
 private:
-	vector<CargoData> freights;
+	vector<CargoData> cargos;
 
 public:
 	CargoDataPool();
 	void addCargo(CargoData f);
 	void editCargo(int index, CargoData f);
 	void deleteCargo(int index);
-	int getCargoIndexById(string id);
+	vector<int> getCargoIndexsByValue(string value);
 	CargoData* getCargoByIndex(int index);
 	void clearAllCargo();
 	void sortByTime();
