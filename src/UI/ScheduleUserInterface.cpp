@@ -9,7 +9,8 @@ using namespace std;
 
 #include "ScheduleUserInterface.h"
 
-ScheduleUserInterface::ScheduleUserInterface() {
+ScheduleUserInterface::ScheduleUserInterface(FreightDataPool& fp, CargoDataPool& cp) {
+    scheduler = new Scheduler(fp, fp, cp, cp);
 }
 
 void ScheduleUserInterface::waitForKey() {
@@ -73,11 +74,30 @@ void ScheduleUserInterface::showMenu() {
 }
 
 void ScheduleUserInterface::setScheduleOptionPrompt() {
+    cout << "------------ Select scheduler option ------------\n\n";
+    cout << "Current option: " << scheduler->getSchedulerOption().message << ".\n";
+    cout << "Select an option below\n0) Cancel  1) Time-priority  2) Capacity-priority\n\n-> ";
+    int schedulerChoice; cin >> schedulerChoice;
+    if (cin.fail()) { cout << "\nError: invalid input. Press enter to go back.\n"; return; }
 
+    //set the selected scheduler option
+    Scheduler::schedulerOutcome canSetSchedulerOption;
+    if (schedulerChoice == 0) { cout << "\nSelection is cancelled Press enter to go back.\n"; return; }
+    if (schedulerChoice == 1) { canSetSchedulerOption = scheduler->setSchedulerOption("BY_TIME"); }
+    else if (schedulerChoice == 2) { canSetSchedulerOption = scheduler->setSchedulerOption("BY_CAPACITY"); }
+    else { canSetSchedulerOption = scheduler->setSchedulerOption(""); } //wrong option so default blank
+
+    cout << "\n" << canSetSchedulerOption.message << " Press enter to go back.\n";
 }
 
 void ScheduleUserInterface::runScheduler() {
+    cout << "------------ Generating the schedule ------------\n\n";
+    Scheduler::schedulerOutcome runSchedulerO = scheduler->runScheduler();
 
+    if (runSchedulerO.status == "ERROR") { cout << runSchedulerO.message << " Press enter to go back.\n"; return; }
+    else {
+
+    }
 }
 
 void ScheduleUserInterface::displaySchedule() {

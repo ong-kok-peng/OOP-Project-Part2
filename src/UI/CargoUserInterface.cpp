@@ -143,7 +143,7 @@ void CargoUserInterface::addCargoPrompt() {
 }
 
 void CargoUserInterface::importFilePrompt() {
-    cout << "\n------------ Import Cargo Records from File ------------\n\n";
+    cout << "------------ Import Cargo Records from File ------------\n\n";
     cout << "Input file path to the Cargo data file:\n";
     cout << "If you have previously loaded records, they will be replaced.\nTo go back, type \"CANCEL\".\n\n-> ";
     string userInput;
@@ -155,7 +155,7 @@ void CargoUserInterface::importFilePrompt() {
 }
 
 void CargoUserInterface::exportFilePrompt() {
-    cout << "\n------------ Exporting Cargo Records to File ------------\n\n";
+    cout << "------------ Exporting Cargo Records to File ------------\n\n";
     CargoDataDisplayer::dataValues isThereData = displayCP->getDataValues(0);
     if (isThereData.status == "NO_DATA") {
         cout << "There are no records. Add a new record or import from a file.\n";

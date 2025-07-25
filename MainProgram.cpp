@@ -29,7 +29,7 @@ int main() {
     FreightDataPool fp; CargoDataPool cp;
 	CargoUserInterface cargoUI(cp);
 	FreightUserInterface freightUI(fp);
-    ScheduleUserInterface scheduleUI;
+    ScheduleUserInterface scheduleUI(fp, cp);
 
     while (true) {
         int mainMenuSelection;
