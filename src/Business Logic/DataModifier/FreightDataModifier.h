@@ -9,14 +9,14 @@ Date: 13/7/2025
 #define FREIGHT_DATA_MODIFIER_H
 
 #include "DataModifier.h"
-#include "../../Data/Freight/FreightDataPool.h"
+#include "../../Data/Freight/I_ModifyFreightDataPool.h"
 
 class FreightDataModifier : public DataModifier {
 private:
-	FreightDataPool& fp;
+	I_ModifyFreightDataPool& fp;
 
 public:
-	FreightDataModifier(FreightDataPool& fp);
+	FreightDataModifier(I_ModifyFreightDataPool& fp);
 	DataModifier::modifyOutcome editData(int index, std::string input) override;
 	DataModifier::modifyOutcome deleteData(int index, char yesNo) override;
 };

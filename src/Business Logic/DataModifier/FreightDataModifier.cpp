@@ -10,7 +10,7 @@ using namespace std;
 
 #include "FreightDataModifier.h"
 
-FreightDataModifier::FreightDataModifier(FreightDataPool& fp) : fp{ fp } {}
+FreightDataModifier::FreightDataModifier(I_ModifyFreightDataPool& fp) : fp{ fp } {}
 
 DataModifier::modifyOutcome FreightDataModifier::editData(int index, string input) {
 	modifyOutcome mo;

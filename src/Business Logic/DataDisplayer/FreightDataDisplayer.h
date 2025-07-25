@@ -9,14 +9,14 @@ Date: 13/7/2025
 #define FREIGHT_DATA_DISPLAYER_H
 
 #include "DataDisplayer.h"
-#include "../../Data/Freight/FreightDataPool.h"
+#include "../../Data/Freight/I_DisplayFreightDataPool.h"
 
 class FreightDataDisplayer : public DataDisplayer {
 private:
-	FreightDataPool& fp;
+	I_DisplayFreightDataPool& fp;
 
 public:
-	FreightDataDisplayer(FreightDataPool& fp);
+	FreightDataDisplayer(I_DisplayFreightDataPool& fp);
 	DataDisplayer::searchOutcome searchData(string id) override;
 	DataDisplayer::dataValues getDataValues(int index) override;
 };

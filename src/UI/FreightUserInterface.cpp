@@ -9,7 +9,7 @@ using namespace std;
 
 #include "FreightUserInterface.h"
 
-FreightUserInterface::FreightUserInterface() {
+FreightUserInterface::FreightUserInterface(FreightDataPool& fp) {
 	addFP = new FreightDataAdder(fp);
 	modifyFP = new FreightDataModifier(fp);
 	displayFP = new FreightDataDisplayer(fp);
@@ -227,7 +227,8 @@ void FreightUserInterface::displayFreight() {
 
 /* test main code
 int main() {
-	FreightUserInterface fInterface;
+    FreightDataPool fp;(
+    FreightUserInterface fInterface(fp);
     fInterface.showMenu();
 
 	return 0;

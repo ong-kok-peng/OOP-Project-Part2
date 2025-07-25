@@ -69,7 +69,7 @@ void CargoDataPool::sortByTime() {
 		});
 }
 
-void CargoDataPool::sortByCapacity() {
+void CargoDataPool::sortByQuantity() {
 	//sort by ascending destination order, with descending capacity order so as to fill in as many cargo as possible.
 	sort(cargos.begin(), cargos.end(), [](CargoData& prevCargo, CargoData& nextCargo) {
 		bool equalDestination = prevCargo.getDestination().compare(nextCargo.getDestination()) == 0;

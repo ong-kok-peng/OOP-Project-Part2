@@ -9,7 +9,7 @@ using namespace std;
 
 #include "CargoUserInterface.h"
 
-CargoUserInterface::CargoUserInterface() {
+CargoUserInterface::CargoUserInterface(CargoDataPool& cp) {
     addCP = new CargoDataAdder(cp);
     modifyCP = new CargoDataModifier(cp);
     displayCP = new CargoDataDisplayer(cp);
@@ -295,7 +295,8 @@ void CargoUserInterface::displayCargo() {
 
 /* test main code
 int main() {
-    CargoUserInterface cInterface;
+    CargoDataPool cp;
+    CargoUserInterface cInterface(cp);
     cInterface.showMenu();
 
     return 0;

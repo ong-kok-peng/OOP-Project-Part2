@@ -10,7 +10,7 @@ using namespace std;
 
 #include "FreightDataDisplayer.h"
 
-FreightDataDisplayer::FreightDataDisplayer(FreightDataPool& fp) : fp{ fp } {}
+FreightDataDisplayer::FreightDataDisplayer(I_DisplayFreightDataPool& fp) : fp{ fp } {}
 
 DataDisplayer::searchOutcome FreightDataDisplayer::searchData(string input) {
 	searchOutcome so;
@@ -46,6 +46,7 @@ DataDisplayer::dataValues FreightDataDisplayer::getDataValues(int index) {
 
 /* main test code
 #include "../DataAdder/FreightDataAdder.h"
+#include "../../Data/Freight/FreightDataPool.h"
 
 int main() {
 	FreightDataPool fr;

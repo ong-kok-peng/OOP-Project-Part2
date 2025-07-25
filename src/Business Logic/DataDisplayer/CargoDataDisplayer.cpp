@@ -10,7 +10,7 @@ using namespace std;
 
 #include "CargoDataDisplayer.h"
 
-CargoDataDisplayer::CargoDataDisplayer(CargoDataPool& cp) : cp{ cp } {}
+CargoDataDisplayer::CargoDataDisplayer(I_DisplayCargoDataPool& cp) : cp{ cp } {}
 
 DataDisplayer::searchOutcome CargoDataDisplayer::searchData(string input) {
 	searchOutcome so;
@@ -45,6 +45,7 @@ DataDisplayer::dataValues CargoDataDisplayer::getDataValues(int index) {
 
 /* main test code
 #include "../DataAdder/CargoDataAdder.h"
+#include "../../Data/Cargo/CargoDataPool.h"
 
 int main() {
 	CargoDataPool cr;

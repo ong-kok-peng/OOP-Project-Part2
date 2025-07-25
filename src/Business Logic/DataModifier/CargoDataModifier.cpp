@@ -10,7 +10,7 @@ using namespace std;
 
 #include "CargoDataModifier.h"
 
-CargoDataModifier::CargoDataModifier(CargoDataPool& cp) : cp{ cp } {}
+CargoDataModifier::CargoDataModifier(I_ModifyCargoDataPool& cp) : cp{ cp } {}
 
 DataModifier::modifyOutcome CargoDataModifier::editData(int index, string input) {
 	modifyOutcome mo;

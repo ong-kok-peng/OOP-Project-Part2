@@ -8,10 +8,13 @@ Date: 17/7/2025
 #ifndef CARGO_DATAPOOL_H
 #define CARGO_DATAPOOL_H
 
-#include <vector>
-#include "CargoData.h"
+#include "I_AddCargoDataPool.h"
+#include "I_ModifyCargoDataPool.h"
+#include "I_DisplayCargoDataPool.h"
+#include "I_SortCargoDataPool.h"
 
-class CargoDataPool  {
+class CargoDataPool : public I_AddCargoDataPool, public I_ModifyCargoDataPool,
+	public I_DisplayCargoDataPool, public I_SortCargoDataPool {
 private:
 	vector<CargoData> cargos;
 
@@ -24,7 +27,7 @@ public:
 	CargoData* getCargoByIndex(int index);
 	void clearAllCargo();
 	void sortByTime();
-	void sortByCapacity();
+	void sortByQuantity();
 };
 
 #endif

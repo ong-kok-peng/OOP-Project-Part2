@@ -9,14 +9,14 @@ Date: 17/7/2025
 #define CARGO_DATA_MODIFIER_H
 
 #include "DataModifier.h"
-#include "../../Data/Cargo/CargoDataPool.h"
+#include "../../Data/Cargo/I_ModifyCargoDataPool.h"
 
 class CargoDataModifier : public DataModifier {
 private:
-	CargoDataPool& cp;
+	I_ModifyCargoDataPool& cp;
 
 public:
-	CargoDataModifier(CargoDataPool& cp);
+	CargoDataModifier(I_ModifyCargoDataPool& cp);
 	DataModifier::modifyOutcome editData(int index, std::string input) override;
 	DataModifier::modifyOutcome deleteData(int index, char yesNo) override;
 };

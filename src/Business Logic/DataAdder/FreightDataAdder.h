@@ -9,15 +9,15 @@ Date: 13/7/2025
 #define FREIGHT_DATAADDER_H
 
 #include "DataAdder.h"
-#include "../../Data/Freight/FreightDataPool.h"
+#include "../../Data/Freight/I_AddFreightDataPool.h"
 #include "../../File Manager/FileReader.h"
 
 class FreightDataAdder : public DataAdder {
 private:
-	FreightDataPool& fp;
+	I_AddFreightDataPool& fp;
 
 public:
-	FreightDataAdder(FreightDataPool& fp);
+	FreightDataAdder(I_AddFreightDataPool& fp);
 	DataAdder::addOutcome addData(string input) override;
 	DataAdder::addOutcome importFromFile(string input) override;
 };

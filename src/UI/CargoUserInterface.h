@@ -17,14 +17,13 @@ Date: 17/7/2025
 
 class CargoUserInterface : public UserInterface {
 private:
-	CargoDataPool cp;
 	CargoDataAdder* addCP;
 	CargoDataModifier* modifyCP;
 	CargoDataDisplayer* displayCP;
 	CargoDataExporter* exportCP;
 
 public:
-	CargoUserInterface();
+	CargoUserInterface(CargoDataPool& cp);
 	void waitForKey() override;
 	void clearScreen() override;
 	void showMenu() override;

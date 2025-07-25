@@ -9,15 +9,15 @@ Date: 17/7/2025
 #define CARGO_DATAADDER_H
 
 #include "DataAdder.h"
-#include "../../Data/Cargo/CargoDataPool.h"
+#include "../../Data/Cargo/I_AddCargoDataPool.h"
 #include "../../File Manager/FileReader.h"
 
 class CargoDataAdder : public DataAdder {
 private:
-	CargoDataPool& cp;
+	I_AddCargoDataPool& cp;
 
 public:
-	CargoDataAdder(CargoDataPool& cp);
+	CargoDataAdder(I_AddCargoDataPool& cp);
 	DataAdder::addOutcome addData(string input) override;
 	DataAdder::addOutcome importFromFile(string input) override;
 };

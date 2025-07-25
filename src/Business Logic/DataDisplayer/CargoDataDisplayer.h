@@ -9,14 +9,14 @@ Date: 17/7/2025
 #define CARGO_DATA_DISPLAYER_H
 
 #include "DataDisplayer.h"
-#include "../../Data/Cargo/CargoDataPool.h"
+#include "../../Data/Cargo/I_DisplayCargoDataPool.h"
 
 class CargoDataDisplayer : public DataDisplayer {
 private:
-	CargoDataPool& cp;
+	I_DisplayCargoDataPool& cp;
 
 public:
-	CargoDataDisplayer(CargoDataPool& cp);
+	CargoDataDisplayer(I_DisplayCargoDataPool& cp);
 	DataDisplayer::searchOutcome searchData(string id) override;
 	DataDisplayer::dataValues getDataValues(int index) override;
 };

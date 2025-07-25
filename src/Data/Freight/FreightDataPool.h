@@ -9,22 +9,26 @@ Date: 13/7/2025
 #define FREIGHT_DATAPOOL_H
 
 #include <vector>
-#include "FreightData.h"
+#include "I_AddFreightDataPool.h"
+#include "I_ModifyFreightDataPool.h"
+#include "I_DisplayFreightDataPool.h"
+#include "I_SortFreightDataPool.h"
 
-class FreightDataPool  {
+class FreightDataPool : public I_AddFreightDataPool, public I_ModifyFreightDataPool, 
+						public I_DisplayFreightDataPool, public I_SortFreightDataPool {
 private:
 	vector<FreightData> freights;
 
 public:
 	FreightDataPool();
-	void addFreight(FreightData f);
-	void editFreight(int index, FreightData f);
-	void deleteFreight(int index);
-	vector<int> getFreightIndexsByValue(string value);
-	FreightData* getFreightByIndex(int index);
-	void clearAllFreight();
-	void sortByTime();
-	void sortByCapacity();
+	void addFreight(FreightData f) override;
+	void editFreight(int index, FreightData f) override;
+	void deleteFreight(int index) override;
+	vector<int> getFreightIndexsByValue(string value) override;
+	FreightData* getFreightByIndex(int index) override;
+	void clearAllFreight() override;
+	void sortByTime() override;
+	void sortByCapacity() override;
 };
 
 #endif

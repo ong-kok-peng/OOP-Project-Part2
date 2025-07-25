@@ -9,6 +9,7 @@ using namespace std;
 
 #include "src/UI/FreightUserInterface.h"
 #include "src/UI/CargoUserInterface.h"
+#include "src/UI/ScheduleUserInterface.h"
 
 void waitForKey() {
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -25,8 +26,10 @@ void clearScreen() {
 }
 
 int main() {
-	CargoUserInterface cargoUI;
-	FreightUserInterface freightUI;
+    FreightDataPool fp; CargoDataPool cp;
+	CargoUserInterface cargoUI(cp);
+	FreightUserInterface freightUI(fp);
+    ScheduleUserInterface scheduleUI;
 
     while (true) {
         int mainMenuSelection;
@@ -60,7 +63,7 @@ int main() {
             clearScreen(); cargoUI.showMenu();
             break;
         case 3:
-            clearScreen(); //scheduleUI.showMenu();
+            clearScreen(); scheduleUI.showMenu();
             break;
         default:
             cout << "\nInvalid option, please type any number from 1 to 6.\n";

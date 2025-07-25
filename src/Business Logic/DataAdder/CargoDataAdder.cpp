@@ -10,7 +10,7 @@ using namespace std;
 
 #include "CargoDataAdder.h"
 
-CargoDataAdder::CargoDataAdder(CargoDataPool& cp) : cp{ cp } {}
+CargoDataAdder::CargoDataAdder(I_AddCargoDataPool& cp) : cp{ cp } {}
 
 DataAdder::addOutcome CargoDataAdder::addData(string input) {
 	addOutcome ao;

@@ -17,14 +17,13 @@ Date: 13/7/2025
 
 class FreightUserInterface : public UserInterface {
 private:
-	FreightDataPool fp;
 	FreightDataAdder* addFP;
 	FreightDataModifier* modifyFP;
 	FreightDataDisplayer* displayFP;
 	FreightDataExporter* exportFP;
 
 public:
-	FreightUserInterface();
+	FreightUserInterface(FreightDataPool& fp);
 	void waitForKey() override;
 	void clearScreen() override;
 	void showMenu() override;

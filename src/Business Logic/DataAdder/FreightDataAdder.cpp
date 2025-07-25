@@ -10,7 +10,7 @@ using namespace std;
 
 #include "FreightDataAdder.h"
 
-FreightDataAdder::FreightDataAdder(FreightDataPool& fp) : fp { fp } {}
+FreightDataAdder::FreightDataAdder(I_AddFreightDataPool& fp) : fp { fp } {}
 
 DataAdder::addOutcome FreightDataAdder::addData(string input) {
 	addOutcome ao;
